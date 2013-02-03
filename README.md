@@ -1,5 +1,5 @@
 # TravelSmart London 2.0 #
-Server-side program for the TravelSmart London platform.
+This is a rewrite of the server-side program for the TravelSmart London platform.
 
 ## Installation ##
 Clone the repository to your workspace.
@@ -16,9 +16,9 @@ Clone the repository to your workspace.
 ### Bus Countdown ###
 Bus countdown can be requested at
 
-    /bus?stopcode1=#####'
+    /bus?stopcode1=#####
 
-where ##### is the 5 digit bus stop code  
+where ##### is the 5 digit bus stop code
 
 ### Tube Countdown ###
 Tube countdown can be requested at
@@ -27,25 +27,3 @@ Tube countdown can be requested at
     /tube?line=@&stop=$$$
 
 where $$$ is the 3 letter station code and @ is the 1 letter line code
-
-### Bike Dock Status ###
-Bike dock status/availability can be requested at
-
-    /bike  
-
-There is no filtering available yet.
-
-### Tube Line Status ###
-Tube line status can be requested at
-
-    /lines
-
-There is no filtering available.
-
-### Crowdedness ###
-Crowdedness index can be requested at
-
-    /crowd
-    /crowd2
-
-This feature is still under testing and may not work at all
