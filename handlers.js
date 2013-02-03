@@ -4,7 +4,6 @@
  *  for that request, it will call it and execute the handler.
  */
 
-var fs = require("fs");
 var serve = require("./serve");
 
 var bus = require("./parser_bus");
