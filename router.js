@@ -6,7 +6,7 @@
 
 var serve = require("./serve.js");
 
-function route(handle, pathname, response, param) {
+function route(handle, response, pathname, param) {
     /*  Check if a defined handle exists for the queried path (e.g. /bus)
         If yes, send handle the request. If not, return 404 */
     if(typeof handle[pathname] === "function") {
