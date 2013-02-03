@@ -24,7 +24,6 @@ function start(response, param) {
     http.get(tflurl, dataloc, function (error, result) {
         if(error) { serve.error(response, 416); }
         else {
-            //console.log("File downloaded at " + result.file);
             parse(result.file, response);
         }
     });
@@ -65,7 +64,7 @@ function manipulateArray(array) {
             array[i][1] = array[i][1].substr(1,array[i][1].length-2); // gets rid of quotation marks for destination
             array[i][2] = array[i][2].substr(0,10); // gets rid of \r at end
             array[i][2] = moment.unix(array[i][2]).fromNow();
-            if (array[i][2] === "in a few seconds") // Replaces "in a few seconds" with a more suitable phrase
+            if (array[i][2] === "in a few seconds") // replaces "in a few seconds" with a more suitable phrase
                 array[i][2] = "momentarily";
         }
     }
