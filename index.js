@@ -5,6 +5,6 @@
 
 var server = require("./server");
 var router = require("./router");
-var handler = require("./handlers");
+var handlers = require("./handlers");
 
 server.start(router.route, handlers.handle);
