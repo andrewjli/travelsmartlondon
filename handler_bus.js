@@ -12,9 +12,8 @@ var serve = require("./serve");
 var dataloc;
 
 function start(response, param) {
-    if(param === undefined) { serve.error(response, 416); }
     var regex = /\?[Ss]top[Cc]ode1\=[0-9][0-9][0-9][0-9][0-9]/;
-    if(!regex.test(param)) { serve.error(response, 416); }
+    if(param === undefined || !regex.test(param)) { serve.error(response, 416); }
     
     var tflurl = { url: "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1" };
     var returnlist = "ReturnList=DestinationText,LineName,EstimatedTime";
