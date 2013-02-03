@@ -13,10 +13,6 @@ var dataloc;
 
 function start(response, param) {
     if(param === undefined) { serve.error(response, 416); }
-    get(response, param);
-}
-
-function get(response, param) {
     var regex = /\?[Ss]top[Cc]ode1\=[0-9][0-9][0-9][0-9][0-9]/;
     if(!regex.test(param)) { serve.error(response, 416); }
     
