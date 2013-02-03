@@ -11,7 +11,7 @@ var serve = require("./serve");
 
 var dataloc;
 
-function start(param, response) {
+function start(response, param) {
     if(param === undefined) { serve.error(response, 416); }
     get(response, param);
 }
