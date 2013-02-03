@@ -20,7 +20,7 @@ function error(response, code) {
             response.end();
         });
     }
-	if(code === 500) {
+    if(code === 500) {
         fs.readFile('./html/error500.html', function (error, html) {
             if (error) { console.log(error); }
             response.write(html);
