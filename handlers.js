@@ -6,34 +6,34 @@
 
 var serve = require("./serve");
 
-var bus = require("./handler_bus");
-var tube = require("./parser_tube");
-var bike = require("./responder_bike");
-var lines = require("./responder_lines");
-var crowd = require("./responder_crowd");
+var handler_bus = require("./handler_bus");
+var handler_tube = require("./handler_tube");
+var handler_bike = require("./handler_bike");
+var handler_lines = require("./handler_lines");
+var handler_crowd = require("./handler_crowd");
 
 function index(response, param) {
     serve.webpage(response, "index");
 }
 
 function bus(response, param) {
-    bus.start(response, param);
+    handler_bus.start(response, param);
 }
 
 function tube(response, param) {
-    tube.start(response, param);
+    handler_tube.start(response, param);
 }
 
 function bike(response, param) {
-    bike.start(response, param);
+    handler_bike.start(response, param);
 }
 
 function lines(response, param) {
-    lines.start(response, param);
+    handler_lines.start(response, param);
 }
 
 function crowd(response, param) {
-    crowd.start(response, param);
+    handler_crowd.start(response, param);
 }
 
 /*  Define the different handlers. Each handler needs to be manually
