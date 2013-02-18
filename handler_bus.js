@@ -12,10 +12,16 @@ var serve = require("./serve");
 var dataloc;
 
 function start(response, param) {
-    var regex = /\?[Ss]top[Cc]ode1\=[0-9][0-9][0-9][0-9][0-9]/;
+    var regex = /\?[Ss]top\=[0-9][0-9][0-9][0-9][0-9]/;
     if(param === undefined || !regex.test(param)) { serve.error(response, 416); }
+    if(regex.test(param)) {
+        var tarray = param.toString().split("=");
+        param = tarray[1];
+    } else {
+        serve.error(response, 416);
+    }
     
-    var tflurl = { url: "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1" };
+    var tflurl = { url: "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?stopcode1=" };
     var returnlist = "ReturnList=DestinationText,LineName,EstimatedTime";
     tflurl.url = tflurl.url + param + "&" + returnlist;
     var rand = Math.floor(Math.random() * 90000);
@@ -76,7 +82,7 @@ function compare(arrayA, arrayB) {
      return (arrayA[3] == arrayB[3] ? 0 : (arrayA[3] < arrayB[3] ? -1 : 1));
 }
 
-/* Creates a JSON object from the array */
+/* Creates a JSON object and populates it with the contents of the array */
 function createJSON(array) {
     var json = {
         "$": {
