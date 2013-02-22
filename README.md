@@ -20,6 +20,13 @@ Bus countdown can be requested at
 
 where ##### is the 5 digit bus stop code
 
+### Bus Stop Query ###
+Bus stop query can be requested at
+
+	/stops?rad=######,$$$$$$,%%%
+
+where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is tha radius
+
 ### Tube Countdown ###
 Tube countdown can be requested at
 

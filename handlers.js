@@ -7,6 +7,7 @@
 var serve = require("./serve");
 
 var handler_bus = require("./handler_bus");
+var handler_stops = require("./handler_stops");
 var handler_tube = require("./handler_tube");
 var handler_bike = require("./handler_bike");
 var handler_lines = require("./handler_lines");
@@ -18,6 +19,10 @@ function index(response, param) {
 
 function bus(response, param) {
     handler_bus.start(response, param);
+}
+
+function stops(response, param) {
+    handler_stops.start(response, param);
 }
 
 function tube(response, param) {
@@ -42,6 +47,7 @@ var handle = {};
 handle["/"] = index;
 handle["/index"] = index;
 handle["/bus"] = bus;
+handle["/stops"] = stops;
 handle["/tube"] = tube;
 //handle["/bike"] = bike;
 //handle["/lines"] = lines;
