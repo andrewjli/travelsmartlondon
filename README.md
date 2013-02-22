@@ -25,7 +25,7 @@ Bus stop query can be requested at
 
 	/stops?rad=######,$$$$$$,%%%
 
-where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is tha radius
+where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius
 
 ### Tube Countdown ###
 Tube countdown can be requested at
