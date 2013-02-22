@@ -41,7 +41,7 @@ function parse(file, response) {
         for(var i = 0; i < array.length; i++) {
             var temp = array[i];
             array[i] = [];
-            array[i] = temp.toString().split(",");
+            array[i] = temp.toString().split(/,(?!\s)/);
         }
         
         manipulateArray(array);
