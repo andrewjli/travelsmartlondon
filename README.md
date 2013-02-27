@@ -23,7 +23,7 @@ where ##### is the 5 digit bus stop code
 ### Bus Stop Query ###
 Bus stop query can be requested at
 
-	/stops?rad=######,$$$$$$,%%%
+	/stops?loc=######,$$$$$$,%%%
 
 where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius
 
@@ -34,3 +34,10 @@ Tube countdown can be requested at
     /tube?line=@&stop=$$$
 
 where $$$ is the 3 letter station code and @ is the 1 letter line code
+
+### Weather ###
+Weather can be requested at
+
+	/weather?loc=######,$$$$$$
+
+where ###### is the latitude co-ordinate and $$$$$$ is the longitude co-ordinate
