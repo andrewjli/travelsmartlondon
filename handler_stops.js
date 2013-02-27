@@ -11,7 +11,7 @@ var serve = require("./serve");
 var dataloc;
 
 function start(response, param) {
-    var regex = /\?[Rr]ad\=-?[0-9]+.[0-9]+,-?[0-9]+.[0-9]+,[0-9][0-9][0-9]+/;
+    var regex = /\?[Ll]oc\=-?[0-9]+.[0-9]+,-?[0-9]+.[0-9]+,[0-9][0-9][0-9]+/;
     if(param === undefined || !regex.test(param)) { serve.error(response, 416); }
     if(regex.test(param)) {
         var tarray = param.toString().split("=");
