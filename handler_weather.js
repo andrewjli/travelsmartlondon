@@ -20,7 +20,7 @@ function start(response, param) {
         serve.error(response, 416);
     }
     
-    var weatherurl = { url: "http://free.worldweatheronline.com/feed/weather.ashx?q=51.52,-0.13&" };
+    var weatherurl = { url: "http://free.worldweatheronline.com/feed/weather.ashx?q=" };
     var variables = "format=json&key=04ae09e61f173958132102";
     weatherurl.url = weatherurl.url + param + "&" + variables;
     var rand = Math.floor(Math.random() * 90000);
