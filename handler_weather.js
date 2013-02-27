@@ -37,8 +37,8 @@ function start(response, param) {
 function parse(file, response) {
     fs.readFile(file, function(error, data) {
         if(error) { serve.error(response, 500); }
-        data = data.toString();
-        var json = createJSON(JSON.parse(data));
+        data = JSON.parse(data.toString());
+        var json = createJSON(data);
         serve.jsonobj(response, json);
         
         fs.unlink(dataloc, function(error) {
@@ -54,8 +54,8 @@ function createJSON(data) {
         "WeatherDesc": "",
         "IconURL": ""
     };
-    json.WeatherDesc = data.current_condition[0].weatherDesc[0].value;
-    json.IconURL = data.current_condition[0].weatherIconUrl[0].value;
+    json.WeatherDesc = data.data.current_condition[0].weatherDesc[0].value;
+    json.IconURL = data.data.current_condition[0].weatherIconUrl[0].value;
     return json;
 }
 
