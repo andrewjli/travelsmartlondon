@@ -12,6 +12,7 @@ var handler_tube = require("./handler_tube");
 var handler_bike = require("./handler_bike");
 var handler_lines = require("./handler_lines");
 var handler_crowd = require("./handler_crowd");
+var handler_weather = require("./handler_weather");
 
 function index(response, param) {
     serve.webpage(response, "index");
@@ -41,6 +42,10 @@ function crowd(response, param) {
     handler_crowd.start(response, param);
 }
 
+function weather(response, param) {
+	handler_weather.start(response, param);
+}
+
 /*  Define the different handlers. Each handler needs to be manually
     defined in the handle object to make them available. */
 var handle = {};
@@ -52,5 +57,6 @@ handle["/tube"] = tube;
 //handle["/bike"] = bike;
 //handle["/lines"] = lines;
 //handle["/crowd"] = crowd;
+handle["/weather"] = weather;
 
 exports.handle = handle;
