@@ -13,7 +13,6 @@ function route(handle, response, pathname, param) {
     if(typeof handle[pathname] === "function") {
         handle[pathname](response, param);
     } else {
-        log.info("Bad request - no handler found");
         serve.error(response, 404);
     }
 }
