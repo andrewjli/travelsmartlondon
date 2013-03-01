@@ -8,12 +8,12 @@ var http = require("http-get");
 var fs = require("fs");
 var moment = require("moment");
 var serve = require("./serve");
+var log = require("./log");
 
 var dataloc;
 
 function start(response, param) {
     var regex = /\?[Ss]top\=[0-9][0-9][0-9][0-9][0-9]/;
-    if(param === undefined || !regex.test(param)) { serve.error(response, 416); }
     if(regex.test(param)) {
         var tarray = param.toString().split("=");
         param = tarray[1];
@@ -52,7 +52,7 @@ function parse(file, response) {
         
         fs.unlink(dataloc, function(error) {
             if (error)
-                console.log("Failed to delete " + dataloc);
+                log.error("Failed to delete " + dataloc);
         });
     });
 }
