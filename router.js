@@ -4,7 +4,8 @@
  *  the request URL.
  */
 
-var serve = require("./serve.js");
+var serve = require("./serve");
+var log = require("./log");
 
 function route(handle, response, pathname, param) {
     /*  Check if a defined handle exists for the queried path (e.g. /bus)
@@ -12,6 +13,7 @@ function route(handle, response, pathname, param) {
     if(typeof handle[pathname] === "function") {
         handle[pathname](response, param);
     } else {
+        log.info("Bad request - no handler found");
         serve.error(response, 404);
     }
 }
