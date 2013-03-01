@@ -15,12 +15,12 @@ function getDate() {
 
 var logger = new (winston.Logger)({
     transports: [
-        new (winston.transports.Console)({ json: false, timestamp: function () { return getDate() }}),
-        new winston.transports.File({ filename: __dirname + '/debug.log', json: false, timestamp: function () { return getDate() }}),
+        new winston.transports.Console({ json: false, timestamp: function () { return getDate() }}),
+        new winston.transports.File({ filename: './logs/debug.log', json: false, timestamp: function () { return getDate() }}),
     ],
     exceptionHandlers: [
-        new (winston.transports.Console)({ json: false, timestamp: function () { return getDate() }}),
-        new winston.transports.File({ filename: __dirname + '/exceptions.log', json: false, timestamp: function () { return getDate() }}),
+        new winston.transports.Console({ json: false, timestamp: function () { return getDate() }}),
+        new winston.transports.File({ filename: './logs/exceptions.log', json: false, timestamp: function () { return getDate() }}),
     ],
     exitOnError: false
 });
