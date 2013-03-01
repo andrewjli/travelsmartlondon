@@ -16,22 +16,20 @@ function start(response, param) {
     if(regex.test(param)) {
         var tarray = param.toString().split("=");
         param = tarray[1];
+    
+        var weatherurl = { url: "http://free.worldweatheronline.com/feed/weather.ashx?q=" };
+        var variables = "format=json&key=04ae09e61f173958132102";
+        weatherurl.url = weatherurl.url + param + "&" + variables;
+        var rand = Math.floor(Math.random() * 90000);
+        dataloc = "./data/weather" + rand + ".txt";
+        
+        http.get(weatherurl, dataloc, function (error, result) {
+            if(!error)
+                parse(result.file, response);
+        });
     } else {
         serve.error(response, 416);
     }
-    
-    var weatherurl = { url: "http://free.worldweatheronline.com/feed/weather.ashx?q=" };
-    var variables = "format=json&key=04ae09e61f173958132102";
-    weatherurl.url = weatherurl.url + param + "&" + variables;
-    var rand = Math.floor(Math.random() * 90000);
-    dataloc = "./data/weather" + rand + ".txt";
-    
-    http.get(weatherurl, dataloc, function (error, result) {
-        if(error) { serve.error(response, 416); }
-        else {
-            parse(result.file, response);
-        }
-    });
 }
 
 function parse(file, response) {

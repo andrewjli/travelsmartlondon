@@ -38,9 +38,7 @@ function start(response, param) {
     
     tflurl.url = tflurl.url + paramarray[0] + "/" + paramarray[1];
     http.get(tflurl, dataloc, function (error, result) {
-        if (error) {
-            serve.error(response, 416);
-        } else {
+        if (!error) {
             parser.on('end', function(result) {
                 //TODO: maniplate json
                 serve.jsonobj(response, result);

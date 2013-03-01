@@ -16,22 +16,20 @@ function start(response, param) {
     if(regex.test(param)) {
         var tarray = param.toString().split("=");
         param = tarray[1];
+    
+        var tflurl = { url: "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?circle=" };
+        var returnlist = "StopPointState=0&ReturnList=StopCode1,StopPointName,StopPointIndicator,StopPointType,Latitude,Longitude";
+        tflurl.url = tflurl.url + param + "&" + returnlist;
+        var rand = Math.floor(Math.random() * 90000);
+        dataloc = "./data/busstop" + rand + ".txt";
+        
+        http.get(tflurl, dataloc, function (error, result) {
+            if(!error)
+                parse(result.file, response);
+        });
     } else {
         serve.error(response, 416);
     }
-    
-    var tflurl = { url: "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?circle=" };
-    var returnlist = "StopPointState=0&ReturnList=StopCode1,StopPointName,StopPointIndicator,StopPointType,Latitude,Longitude";
-    tflurl.url = tflurl.url + param + "&" + returnlist;
-    var rand = Math.floor(Math.random() * 90000);
-    dataloc = "./data/busstop" + rand + ".txt";
-    
-    http.get(tflurl, dataloc, function (error, result) {
-        if(error) { serve.error(response, 416); }
-        else {
-            parse(result.file, response);
-        }
-    });
 }
 
 function parse(file, response) {
