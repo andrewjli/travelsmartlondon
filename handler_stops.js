@@ -86,21 +86,21 @@ function manipulateArray(array) {
 /* Creates a JSON object and populates it with the contents of the array */
 function createJSON(array) {
     var json = {
-        "Stations": []
+        "stations": []
     };
     for (var i = 0; i < array.length; i++) {
         var temp = {
-            "StopName": "",
-            "StopCode": "",
-            "StopIndicator": "",
-            "Long": "",
-            "Lat": ""
+            "stopName": "",
+            "stopCode": "",
+            "stopIndicator": "",
+            "long": "",
+            "lat": ""
         };
-        temp.StopName = array[i][0];
-        temp.StopCode = array[i][1];
-        temp.StopIndicator = array[i][3];
-        temp.Long = array[i][4];
-        temp.Lat = array[i][5];
+        temp.stopName = array[i][0];
+        temp.stopCode = array[i][1];
+        temp.stopIndicator = array[i][3];
+        temp.lat = array[i][4];
+        temp.long = array[i][5];
         json.Stations.push(temp);
     }
     return json;
