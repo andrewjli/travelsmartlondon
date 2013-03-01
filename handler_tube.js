@@ -39,7 +39,7 @@ function start(response, param) {
     tflurl.url = tflurl.url + paramarray[0] + "/" + paramarray[1];
     http.get(tflurl, dataloc, function (error, result) {
         if (!error) {
-            parser.on('end', function(result) {
+            parser.on("end", function(result) {
                 //TODO: maniplate json
                 serve.jsonobj(response, result);
                 
@@ -54,7 +54,7 @@ function start(response, param) {
                 if (error) {
                     log.error(error);
                 }
-                if (data.toString('hex',0,3) === "efbbbf") {
+                if (data.toString("hex",0,3) === "efbbbf") {
                     data = data.slice(3); // removes byte order mark
                 }
                 parser.parseString(data);
