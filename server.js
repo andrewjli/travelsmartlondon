@@ -7,7 +7,6 @@
 var http = require("http");
 var url = require("url");
 var log = require("./log");
-var moment = require("moment");
 
 var timer = require("./timing.js");
 
@@ -17,8 +16,6 @@ function start(route, handle) {
     function onRequest(request, response) {
         var pathname = url.parse(request.url).pathname;
         var param = url.parse(request.url).search;
-        //var now = moment().utc().format("hh:mm:ss a");
-        //console.log("[" + now + "] Request for " + pathname + " received");
         log.info("Request for " + pathname + " received");
         
         request.setEncoding("utf8");
