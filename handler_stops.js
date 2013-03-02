@@ -30,11 +30,11 @@ function start(response, param) {
 
         http.get(tflurl, function(result) {
             var data = "";
-            result.on('data', function (chunk){
+            result.on("data", function (chunk){
                 data += chunk;
             });
             
-            result.on('end', function(){
+            result.on("end", function(){
                 parse(data, response);
             });
         });
