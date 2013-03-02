@@ -8,7 +8,7 @@
  */
 
 /* Required modules */
-var http = require("http-get");
+var http = require("http");
 var fs = require("fs");
 var serve = require("./serve");
 var log = require("./log");
@@ -30,16 +30,19 @@ function start(response, param) {
         var tarray = param.toString().split("=");
         param = tarray[1];
     
-        var tflurl = { url: "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?circle=" };
+        var tflurl = "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?circle="
         var returnlist = "StopPointState=0&ReturnList=StopCode1,StopPointName,StopPointIndicator,StopPointType,Latitude,Longitude";
-        tflurl.url = tflurl.url + param + "&" + returnlist;
-        var rand = Math.floor(Math.random() * 90000);
-        dataloc = "./data/busstop" + rand + ".txt";
-        
-        http.get(tflurl, dataloc, function (error, result) {
-            if(!error) {
-                parse(result.file, response);
-            }
+        tflurl = tflurl + param + "&" + returnlist;
+
+        http.get(tflurl, function(result) {
+            var data = "";
+            result.on('data', function (chunk){
+                data += chunk;
+            });
+            
+            result.on('end', function(){
+                parse(data, response);
+            });
         });
     } else {
         serve.error(response, 416);
@@ -53,29 +56,17 @@ function start(response, param) {
  * @param file     the downloaded data file location
  * @param response the response object created by the server when the request was received
  */
-function parse(file, response) {
-    fs.readFile(file, function(error, data) {
-        if(error) {
-            serve.error(response, 500);
-        }
-        var array = data.toString().split("\n");
-        for(var i = 0; i < array.length; i++) {
-            var temp = array[i];
-            array[i] = [];
-            array[i] = temp.toString().split(/,(?!\s)/);
-        }
-        
-        manipulateArray(array);
-        var json = createJSON(array);
-        serve.jsonobj(response, json);
-        
-        /* Delete downloaded data */
-        fs.unlink(dataloc, function(error) {
-            if(error) {
-                log.error("Failed to delete " + dataloc);
-            }
-        });
-    });
+function parse(data, response) {
+    var array = data.toString().split("\n");
+    for(var i = 0; i < array.length; i++) {
+        var temp = array[i];
+        array[i] = [];
+        array[i] = temp.toString().split(/,(?!\s)/);
+    }
+    
+    manipulateArray(array);
+    var json = createJSON(array);
+    serve.jsonobj(response, json);
 }
 
 /**
