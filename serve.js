@@ -20,7 +20,7 @@ var log = require("./log");
 function error(response, code) {
     response.writeHead(code, { "Content-Type": "text/html" });
     if(code === 404) {
-        fs.readFile('./html/error404.html', function (error, html) {
+        fs.readFile('./html/error404.html', function(error, html) {
             if (error) {
                 log.error(error);
             }
@@ -30,7 +30,7 @@ function error(response, code) {
         });
     }
     if(code === 416) {
-        fs.readFile('./html/error416.html', function (error, html) {
+        fs.readFile('./html/error416.html', function(error, html) {
             if (error) {
                 log.error(error);
             }
@@ -40,7 +40,7 @@ function error(response, code) {
         });
     }
     if(code === 500) {
-        fs.readFile('./html/error500.html', function (error, html) {
+        fs.readFile('./html/error500.html', function(error, html) {
             if (error) {
                 log.error(error);
             }
@@ -61,7 +61,7 @@ function error(response, code) {
 function webpage(response, page) {
     response.writeHead(200, { "Content-Type": "text/html" });
     var filename = "./html/" + page + ".html";
-    fs.readFile(filename, function (error, html) {
+    fs.readFile(filename, function(error, html) {
         if (error) {
             log.error(error);
         }

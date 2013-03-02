@@ -38,14 +38,14 @@ var logger = new winston.Logger({
     transports: [
         new winston.transports.Console({
             json: false,
-            timestamp: function () {
+            timestamp: function() {
                 return getDate()
             }
         }),
         new winston.transports.File({
             filename: './logs/debug.log',
             json: false,
-            timestamp: function () {
+            timestamp: function() {
                 return getDate()
             }
         }),
@@ -53,14 +53,14 @@ var logger = new winston.Logger({
     exceptionHandlers: [
         new winston.transports.Console({
             json: false,
-            timestamp: function () {
+            timestamp: function() {
                 return getDate()
             }
         }),
         new winston.transports.File({
             filename: './logs/exceptions.log',
             json: false,
-            timestamp: function () {
+            timestamp: function() {
                 return getDate()
             }
         }),
