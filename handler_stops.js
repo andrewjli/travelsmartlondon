@@ -37,8 +37,9 @@ function start(response, param) {
         dataloc = "./data/busstop" + rand + ".txt";
         
         http.get(tflurl, dataloc, function (error, result) {
-            if(!error)
+            if(!error) {
                 parse(result.file, response);
+            }
         });
     } else {
         serve.error(response, 416);

@@ -38,8 +38,9 @@ function start(response, param) {
         dataloc = "./data/bus" + rand + ".txt";
         
         http.get(tflurl, dataloc, function (error, result) {
-            if(!error)
+            if(!error) {
                 parse(result.file, response);
+            }
         });
     } else {
         serve.error(response, 416);
@@ -55,7 +56,9 @@ function start(response, param) {
  */
 function parse(file, response) {
     fs.readFile(file, function(error, data) {
-        if(error) { serve.error(response, 500); }
+        if(error) {
+            serve.error(response, 500);
+        }
         var array = data.toString().split("\n");
         for(var i = 0; i < array.length; i++) {
             var temp = array[i];
@@ -71,8 +74,9 @@ function parse(file, response) {
         
         /* Delete downloaded data */
         fs.unlink(dataloc, function(error) {
-            if (error)
+            if(error) {
                 log.error("Failed to delete " + dataloc);
+            }
         });
     });
 }
@@ -90,7 +94,7 @@ function manipulateArray(array) {
         array[i][1] = array[i][1].substr(1,array[i][1].length-2);   // gets rid of quotation marks for destination
         array[i][2] = array[i][2].substr(0,10);                     // gets rid of \r at end
         array[i][2] = moment.unix(array[i][2]).fromNow();
-        if (array[i][2] === "in a few seconds") {
+        if(array[i][2] === "in a few seconds") {
             array[i][2] = "due";
         } else if(array[i][2] === "in a minute") {
             array[i][2] = "1 min";
@@ -130,7 +134,7 @@ function compare(arrayA, arrayB) {
  */
 function createJSON(data) {
     var json = [];
-    for (var i = 0; i < data.length; i++) {
+    for(var i = 0; i < data.length; i++) {
         var temp = {
             "Route": "",
             "Destination": "",
