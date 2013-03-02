@@ -54,14 +54,14 @@ function start(response, param) {
  */
 function parse(data, response) {
     /* Remove byte-order mark */
-    var newdata = data.replace("\ufeff", "");
+    data = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
         //json = createJSON(result);                            /* TO DO */
         serve.jsonobj(response, result /* json */);
     });
     
-    parser.parseString(newdata);
+    parser.parseString(data);
 }
 
 /**
