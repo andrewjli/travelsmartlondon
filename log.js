@@ -13,7 +13,7 @@ function getDate() {
             +pad(d.getUTCSeconds())+']';
 }
 
-var logger = new (winston.Logger)({
+var logger = new winston.Logger({
     transports: [
         new winston.transports.Console({ json: false, timestamp: function () { return getDate() }}),
         new winston.transports.File({ filename: './logs/debug.log', json: false, timestamp: function () { return getDate() }}),
