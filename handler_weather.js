@@ -9,18 +9,12 @@
  */
 
 /* Required modules */
-var http = require("http-get");
-var fs = require("fs");
+var http = require("http");
 var serve = require("./serve");
-var log = require("./log");
-
-/* Global variables */
-var dataLoc;
 
 /**
  * Checks to see if the query matches the specified
- * format. If it does, queries the URL downloads the data,
- * otherwise returns an error
+ * format. If it does, queries the URL
  * 
  * @param response the response object created by the server when the request was received
  * @param param    the client requested parameters
@@ -31,16 +25,19 @@ function start(response, param) {
         var tarray = param.toString().split("=");
         param = tarray[1];
     
-        var weatherurl = { url: "http://free.worldweatheronline.com/feed/weather.ashx?q=" };
+        var weatherurl = "http://free.worldweatheronline.com/feed/weather.ashx?q="
         var variables = "format=json&key=04ae09e61f173958132102";
-        weatherurl.url = weatherurl.url + param + "&" + variables;
-        var rand = Math.floor(Math.random() * 90000);
-        dataLoc = "./data/weather" + rand + ".txt";
-        
-        http.get(weatherurl, dataLoc, function (error, result) {
-            if(!error) {
-                parse(result.file, response);
-            }
+        weatherurl = weatherurl + param + "&" + variables;
+
+        http.get(weatherurl, function(result) {
+            var data = "";
+            result.on('data', function (chunk){
+                data += chunk;
+            });
+            
+            result.on('end', function(){
+                parse(data, response);
+            });
         });
     } else {
         serve.error(response, 416);
@@ -51,25 +48,13 @@ function start(response, param) {
  * Reads the downloaded data, turns it into a JSON Object
  * and sends it as a response to the client request
  * 
- * @param file     the downloaded data file location
+ * @param data     the downloaded data
  * @param response the response object created by the server when the request was received
  */
-function parse(file, response) {
-    fs.readFile(file, function(error, data) {
-        if(error) {
-            serve.error(response, 500);
-        }
-        data = JSON.parse(data.toString());
-        var json = createJSON(data);
-        serve.jsonobj(response, json);
-        
-        /* Delete downloaded data */
-        fs.unlink(dataLoc, function(error) {
-            if(error) {
-                log.error("Failed to delete " + dataLoc);
-            }
-        });
-    });
+function parse(data, response) {
+    data = JSON.parse(data.toString());
+    var json = createJSON(data);
+    serve.jsonobj(response, json);
 }
 
 /**
@@ -81,11 +66,11 @@ function parse(file, response) {
  */
 function createJSON(data) {
     var json = {
-        "temperature": "",
+        "Temperature": "",
         "WeatherDesc": "",
         "IconURL": ""
     };
-    json.temperature = data.data.current_condition[0].temp_C;
+    json.Temperature = data.data.current_condition[0].temp_C;
     json.WeatherDesc = data.data.current_condition[0].weatherDesc[0].value;
     json.IconURL = data.data.current_condition[0].weatherIconUrl[0].value;
     return json;
