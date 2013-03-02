@@ -68,7 +68,7 @@ function parse(data, response) {
 function createJSON(data) {
     var json = {
 
-    }
+    };
     return json;
 }
 
