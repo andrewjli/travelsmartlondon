@@ -38,8 +38,9 @@ function start(response, param) {
         dataLoc = "./data/weather" + rand + ".txt";
         
         http.get(weatherurl, dataLoc, function (error, result) {
-            if(!error)
+            if(!error) {
                 parse(result.file, response);
+            }
         });
     } else {
         serve.error(response, 416);
@@ -55,14 +56,18 @@ function start(response, param) {
  */
 function parse(file, response) {
     fs.readFile(file, function(error, data) {
-        if(error) { serve.error(response, 500); }
+        if(error) {
+            serve.error(response, 500);
+        }
         data = JSON.parse(data.toString());
-        var json = manipulateJSON(data);
+        var json = createJSON(data);
         serve.jsonobj(response, json);
         
+        /* Delete downloaded data */
         fs.unlink(dataLoc, function(error) {
-            if (error)
+            if(error) {
                 log.error("Failed to delete " + dataLoc);
+            }
         });
     });
 }
@@ -71,14 +76,16 @@ function parse(file, response) {
  * Creates a new JSON object and populates it with the useful
  * contents of the given data
  * 
- * @param data a JSON object returned by the parse method
+ * @param data a JSON object given by the parse method
  * @return     a JSON object with all the useless data removed
  */
-function manipulateJSON(data) {
+function createJSON(data) {
     var json = {
+        "temperature": "",
         "WeatherDesc": "",
         "IconURL": ""
     };
+    json.temperature = data.data.current_condition[0].temp_C;
     json.WeatherDesc = data.data.current_condition[0].weatherDesc[0].value;
     json.IconURL = data.data.current_condition[0].weatherIconUrl[0].value;
     return json;
