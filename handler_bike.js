@@ -44,7 +44,7 @@ function start(response, param) {
         var maxLong = long + (rad/50000);
         var minLong = long - (rad/50000);
 
-        db.exampleDb.find({$and : [
+        db.bike.find({$and : [
                             {lat : {$gte : minLat}},
                             {lat : {$lt : maxLat}},
                             {long : {$lt : maxLong}},
