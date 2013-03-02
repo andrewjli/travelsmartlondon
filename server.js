@@ -8,7 +8,7 @@ var http = require("http");
 var url = require("url");
 var log = require("./log");
 
-var timer = require("./timing.js");
+//var timer = require("./timing");
 
 function start(route, handle) {
     /*  Upon receiving request, parse URL and save path and parameters
