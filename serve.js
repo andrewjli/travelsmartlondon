@@ -77,6 +77,7 @@ function jsonobj(response, obj) {
     response.end();
 }
 
+/* Make methods available to other modules */
 exports.error = error;
 exports.webpage = webpage;
 exports.jsonobj = jsonobj;
