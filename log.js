@@ -7,7 +7,7 @@
  */
 
 /* Required modules */
-var winston = require('winston');
+var winston = require("winston");
 
 /**
  * Gets the current date and time and returns it
