@@ -29,8 +29,6 @@ function start(response, param) {
         var tflurl = "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?stopcode1=";
         var returnlist = "ReturnList=DestinationText,LineName,EstimatedTime";
         tflurl = tflurl + param + "&" + returnlist;
-        //var rand = Math.floor(Math.random() * 90000);
-        //dataloc = "./data/bus" + rand + ".txt";
         
         http.get(tflurl, function(result) {
             var data = "";
