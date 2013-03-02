@@ -13,7 +13,7 @@ var db = require("mongojs").connect("tslDb", ["bike"]);
 
 /**
  * Checks to see if the query matches the specified
- * format. If it does, queries the URL
+ * format. If it does, queries the database for the given radius
  * 
  * @param response the response object created by the server when the request was received
  * @param param    the client requested parameters
