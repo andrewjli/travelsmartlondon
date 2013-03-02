@@ -54,5 +54,5 @@ function start(route, handle) {
     //timer.start();
 }
 
-/* Make start method 
+/* Make method available to other modules */
 exports.start = start;
