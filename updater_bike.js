@@ -2,7 +2,7 @@
  * This module queries TFL's Bike API, parses the response,
  * manipulates it to remove useless information and stores it.
  * 
- * @author  Kamil Prezkwas, Andrew Li
+ * @author  Kamil Przekwas, Andrew Li
  * @version 1.0
  */
 
