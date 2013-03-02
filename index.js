@@ -1,10 +1,14 @@
-/*
- *  This module starts the program. When running this
- *  file, make sure you run it with superuser permissions.
+/**
+ * This module starts the program
+ * 
+ * @author  Andrew Li
+ * @version 1.0
  */
 
+/* Required modules */
 var server = require("./server");
 var router = require("./router");
 var handlers = require("./handlers");
 
+/* Start the server */
 server.start(router.route, handlers.handle);
