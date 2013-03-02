@@ -30,7 +30,7 @@ where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate an
 ### Tube Countdown ###
 Tube countdown can be requested at
 
-    /tube?stop=@,$$$&line=@
+    /tube?stop=@,$$$
 
 where $$$ is the 3 letter station code and @ is the 1 letter line code
 
