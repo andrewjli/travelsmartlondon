@@ -16,7 +16,7 @@ Clone the repository to your workspace.
 ### Bus Countdown ###
 Bus countdown can be requested at
 
-    /bus?stopcode1=#####
+    /bus?stop=#####
 
 where ##### is the 5 digit bus stop code
 
@@ -30,8 +30,7 @@ where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate an
 ### Tube Countdown ###
 Tube countdown can be requested at
 
-    /tube?stop=$$$&line=@
-    /tube?line=@&stop=$$$
+    /tube?stop=@,$$$&line=@
 
 where $$$ is the 3 letter station code and @ is the 1 letter line code
 
