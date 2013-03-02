@@ -46,8 +46,8 @@ function start(route, handle) {
      * If you use this on Cloud9, comment out line 31.
      * Do not leave both lines uncommented.
      */
-    //http.createServer(onRequest).listen(80);
-    http.createServer(onRequest).listen(process.env.PORT, process.env.IP);
+    http.createServer(onRequest).listen(4654);
+    //http.createServer(onRequest).listen(process.env.PORT, process.env.IP);
     log.info("Server started");
     
     /* Start timer for parsers that need regular refreshing */
