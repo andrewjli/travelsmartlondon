@@ -29,12 +29,10 @@ function start(route, handle) {
      * @param response the response object created by the server
      */
     function onRequest(request, response) {
-        /* Log request */
-        log.info("Request for " + pathname + " received");
-
         /* Parse URL */
         var pathname = url.parse(request.url).pathname;
         var param = url.parse(request.url).search;
+        log.info("Request for " + pathname + " received");
         
         /* Pass to router */
         request.setEncoding("utf8");
