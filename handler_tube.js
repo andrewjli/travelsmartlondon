@@ -8,15 +8,10 @@
  */
 
 /* Required modules */
-var http = require("http-get");
+var http = require("http");
 var xml2js = require("xml2js");
-var fs = require("fs");
 var parser = new xml2js.Parser();
 var serve = require("./serve");
-var log = require("./log");
-
-/* Global variables */
-var dataloc;
 
 /**
  * Checks to see if the query matches the specified
@@ -34,39 +29,33 @@ function start(response, param) {
         var tarray = param.toString().split("=");
         paramarray = tarray[1].toString().split(",");
 
-        var tflurl = { url: "http://cloud.tfl.gov.uk/TrackerNet/PredictionDetailed/" };    
-        var rand = Math.floor(Math.random() * 90000);
-        dataloc = "./data/tube" + rand + ".xml";
+        var tflurl = "http://cloud.tfl.gov.uk/TrackerNet/PredictionDetailed/";
+        tflurl = tflurl + paramarray[0] + "/" + paramarray[1];
         
-        tflurl.url = tflurl.url + paramarray[0] + "/" + paramarray[1];
-        http.get(tflurl, dataloc, function (error, result) {
-            if(!error) {
-                parser.on("end", function(result) {
-                    //json = createJSON(result);                            /* TO DO */
-                    serve.jsonobj(response, result /* json */);
-                    
-                    /* Delete downloaded data */
-                    fs.unlink(dataloc, function(error) {
-                        if(error) {
-                            log.error("Failed to delete " + dataloc);
-                        }
-                    });
-                });
-                
-                fs.readFile(result.file, function(error, data) {
-                    if(error) {
-                        log.error(error);
-                    }
-                    if(data.toString("hex",0,3) === "efbbbf") {
-                        data = data.slice(3); // removes byte order mark
-                    }
-                    parser.parseString(data);
-                });
-            }
+        http.get(tflurl, function(result) {
+            var data = "";
+            result.on("data", function (chunk){
+                data += chunk;
+            });
+            
+            result.on("end", function(){
+                parse(data, response);
+            });
         });
     } else {
         serve.error(response, 416);
     }
+}
+
+function parse(data, response) {
+    var newdata = data.replace("\ufeff", "");
+    
+    parser.on("end", function(result) {
+        //json = createJSON(result);                            /* TO DO */
+        serve.jsonobj(response, result /* json */);
+    });
+    
+    parser.parseString(newdata);
 }
 
 /**
@@ -77,7 +66,7 @@ function start(response, param) {
  * @return     a JSON object with all the useless data removed
  */
 function createJSON(data) {
-    json = {
+    var json = {
 
     }
     return json;
