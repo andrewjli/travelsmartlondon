@@ -1,17 +1,30 @@
-/*
- *  This module queries TFL's bus API with the given parameters,
- *  parses the response, manipulates it to remove useless information
- *  and then returns it to the client.
+/**
+ * This module queries TFL's bus API with the given parameters,
+ * parses the response, manipulates it to remove useless information
+ * and then returns it to the client.
+ * 
+ * @author  Andrew Li
+ * @version 1.0
  */
 
+/* Required modules */
 var http = require("http-get");
 var fs = require("fs");
 var moment = require("moment");
 var serve = require("./serve");
 var log = require("./log");
 
+/* Global variables */
 var dataloc;
 
+/**
+ * Checks to see if the query matches the specified
+ * format. If it does, queries the URL downloads the data,
+ * otherwise returns an error
+ * 
+ * @param response the response object created by the server when the request was received
+ * @param param    the client requested parameters
+ */
 function start(response, param) {
     var regex = /\?[Ss]top\=[0-9][0-9][0-9][0-9][0-9]/;
     if(regex.test(param)) {
@@ -33,6 +46,13 @@ function start(response, param) {
     }
 }
 
+/**
+ * Reads the downloaded data, turns it into a JSON Object
+ * and sends it as a response to the client request
+ * 
+ * @param file     the downloaded data file location
+ * @param response the response object created by the server when the request was received
+ */
 function parse(file, response) {
     fs.readFile(file, function(error, data) {
         if(error) { serve.error(response, 500); }
@@ -43,11 +63,13 @@ function parse(file, response) {
             array[i] = temp.toString().split(",");
         }
         
+        array.shift();
         array = array.sort(compare);
         manipulateArray(array);
         var json = createJSON(array);
         serve.jsonobj(response, json);
         
+        /* Delete downloaded data */
         fs.unlink(dataloc, function(error) {
             if (error)
                 log.error("Failed to delete " + dataloc);
@@ -55,56 +77,72 @@ function parse(file, response) {
     });
 }
 
-/*  Takes the array and manipulates it to get rid of unwanted data and convert
-    Epoch time into a time counter from "now" (e.g. 'in 1 minute') */
+/**
+ * Manipulates the array of data and removes useless information and
+ * convert Epoch time into a countdown from current time
+ * 
+ * @param array an array given by the parse method
+ */
 function manipulateArray(array) {
     for(var i = 0; i < array.length; i++) {
-        array[i].shift(); //gets rid of the first item
-        array[i][0] = array[i][0].substr(1,array[i][0].length-2); //gets rid of quotation marks for first item
-        if (array[i][2] === undefined) {
-            array[i][1] = array[i][1].substr(0,13); // gets rid of \r at end
-            array[i][1] = moment.utc(parseInt(array[i][1], 10));
+        array[i].shift();                                               /*gets rid of the first item */
+        array[i][0] = array[i][0].substr(1,array[i][0].length-2);       //gets rid of quotation marks for first item
+        array[i][1] = array[i][1].substr(1,array[i][1].length-2);   // gets rid of quotation marks for destination
+        array[i][2] = array[i][2].substr(0,10);                     // gets rid of \r at end
+        array[i][2] = moment.unix(array[i][2]).fromNow();
+        if (array[i][2] === "in a few seconds") {
+            array[i][2] = "due";
+        } else if(array[i][2] === "in a minute") {
+            array[i][2] = "1 min";
         } else {
-            array[i][1] = array[i][1].substr(1,array[i][1].length-2); // gets rid of quotation marks for destination
-            array[i][2] = array[i][2].substr(0,10); // gets rid of \r at end
-            array[i][2] = moment.unix(array[i][2]).fromNow();
-            if (array[i][2] === "in a few seconds") // replaces "in a few seconds" with a more suitable phrase
-                array[i][2] = "momentarily";
+            array[i][2] = array[i][2].substr(3,array[i][2].length-7);
         }
     }
 }
 
-/*  Criteria to sort array. Allows sorting of a 2D array based on the Epoch time stamp.
-    The lower the number, the higher it appears up in the array when the sort is done. */
+/**
+ * Criteria to sort array. Allows sorting of a 2D array based
+ * on the Epoch time stamp. The lower the number, the higher it
+ * appears up in the array when the sort is done.
+ * 
+ * @param arrayA an array (row) in the array of data
+ * @param arrayB another array (row) in the array of data
+ * @return       an integer to determine position change
+ */
 function compare(arrayA, arrayB) {
-     return (arrayA[3] == arrayB[3] ? 0 : (arrayA[3] < arrayB[3] ? -1 : 1));
+    if(arrayA[3] == arrayB[3]) {
+        return 0;
+    } else {
+        if(arrayA[3] < arrayB[3]) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
 }
 
-/* Creates a JSON object and populates it with the contents of the array */
-function createJSON(array) {
-    var json = {
-        "$": {
-            "lastUpdate": "",
-            "version": ""
-        }
-    };
-    for (var i = 0; i < array.length; i++) {
-        if (array[i][2] === undefined) {
-            json.$.lastUpdate = array[i][1];
-            json.$.version = array[i][0];
-        } else {
-            var temp = {
-                "Route": "",
-                "Destination": "",
-                "Time": ""
-            };
-            temp.Route = array[i][0];
-            temp.Destination = array[i][1];
-            temp.Time = array[i][2];
-            json[i] = temp;
-        }
+/**
+ * Creates a new JSON object and populates it with the
+ * contents of the given data
+ * 
+ * @param data a JSON object returned by the parse method
+ * @return     a JSON object with all the useless data removed
+ */
+function createJSON(data) {
+    var json = [];
+    for (var i = 0; i < data.length; i++) {
+        var temp = {
+            "Route": "",
+            "Destination": "",
+            "Time": ""
+        };
+        temp.Route = data[i][0];
+        temp.Destination = data[i][1];
+        temp.Time = data[i][2];
+        json.push(temp);
     }
     return json;
 }
 
+/* Makes start method available to other modules */
 exports.start = start;
