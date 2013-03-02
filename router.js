@@ -16,8 +16,10 @@ var log = require("./log");
  * received request. If yes, executes handler.
  * If no, serves an error
  * 
- * @param response the response object created by the server when the request was received
- * @param code     the HTTP error code to be returned to the user
+ * @param handle   a function provided by the handler module
+ * @param response the response object created by the server
+ * @param pathname the client requested pathname
+ * @param param    the client requested parameters
  */
 function route(handle, response, pathname, param) {
     if(typeof handle[pathname] === "function") {
