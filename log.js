@@ -16,7 +16,11 @@ var winston = require('winston');
 function getDate() {
     var d = new Date();
     function pad(n) {
-            return n<10 ? '0'+n : n;
+        if(n < 10) {
+            return '0'+n;
+        } else {
+            return n;
+        }
     }
     return "["+d.getUTCFullYear()+'-'
             +pad(d.getUTCMonth()+1)+'-'
@@ -32,12 +36,34 @@ function getDate() {
  */
 var logger = new winston.Logger({
     transports: [
-        new winston.transports.Console({ json: false, timestamp: function () { return getDate() }}),
-        new winston.transports.File({ filename: './logs/debug.log', json: false, timestamp: function () { return getDate() }}),
+        new winston.transports.Console({
+            json: false,
+            timestamp: function () {
+                return getDate()
+            }
+        }),
+        new winston.transports.File({
+            filename: './logs/debug.log',
+            json: false,
+            timestamp: function () {
+                return getDate()
+            }
+        }),
     ],
     exceptionHandlers: [
-        new winston.transports.Console({ json: false, timestamp: function () { return getDate() }}),
-        new winston.transports.File({ filename: './logs/exceptions.log', json: false, timestamp: function () { return getDate() }}),
+        new winston.transports.Console({
+            json: false,
+            timestamp: function () {
+                return getDate()
+            }
+        }),
+        new winston.transports.File({
+            filename: './logs/exceptions.log',
+            json: false,
+            timestamp: function () {
+                return getDate()
+            }
+        }),
     ],
     exitOnError: false
 });
