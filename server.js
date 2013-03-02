@@ -11,7 +11,7 @@
 var http = require("http");
 var url = require("url");
 var log = require("./log");
-//var timer = require("./timing");
+var timer = require("./timer");
 
 /**
  * Starts a server that listens on the specified port and IP address
@@ -51,7 +51,8 @@ function start(route, handle) {
     log.info("Server started");
     
     /* Start timer for parsers that need regular refreshing */
-    //timer.start();
+    timer.start();
+    log.info("Timer started");
 }
 
 /* Make method available to other modules */
