@@ -1,16 +1,30 @@
-/*
- *  This module queries World Weather Online's API with the co-ordinates and radius,
- *  parses the response, manipulates it to remove useless information
- *  and then returns the list of bus stops within a radius of the co-ordinates.
+/**
+ * This module queries World Weather Online's API with the
+ * co-ordinates and radius, parses the response, manipulates
+ * it to remove useless information and then returns the
+ * list of bus stops within a radius of the co-ordinates.
+ * 
+ * @author  Andrew Li
+ * @version 1.0
  */
 
+/* Required modules */
 var http = require("http-get");
 var fs = require("fs");
 var serve = require("./serve");
 var log = require("./log");
 
-var dataloc;
+/* Global variables */
+var dataLoc;
 
+/**
+ * Checks to see if the query matches the specified
+ * format. If it does, queries the URL downloads the data,
+ * otherwise returns an error
+ * 
+ * @param response the response object created by the server when the request was received
+ * @param param    the client requested parameters
+ */
 function start(response, param) {
     var regex = /\?[Ll]oc\=-?[0-9]+.[0-9]+,-?[0-9]+.[0-9]+/;
     if(regex.test(param)) {
@@ -21,9 +35,9 @@ function start(response, param) {
         var variables = "format=json&key=04ae09e61f173958132102";
         weatherurl.url = weatherurl.url + param + "&" + variables;
         var rand = Math.floor(Math.random() * 90000);
-        dataloc = "./data/weather" + rand + ".txt";
+        dataLoc = "./data/weather" + rand + ".txt";
         
-        http.get(weatherurl, dataloc, function (error, result) {
+        http.get(weatherurl, dataLoc, function (error, result) {
             if(!error)
                 parse(result.file, response);
         });
@@ -32,22 +46,35 @@ function start(response, param) {
     }
 }
 
+/**
+ * Reads the downloaded data, turns it into a JSON Object
+ * and sends it as a response to the client request
+ * 
+ * @param file     the downloaded data file location
+ * @param response the response object created by the server when the request was received
+ */
 function parse(file, response) {
     fs.readFile(file, function(error, data) {
         if(error) { serve.error(response, 500); }
         data = JSON.parse(data.toString());
-        var json = createJSON(data);
+        var json = manipulateJSON(data);
         serve.jsonobj(response, json);
         
-        fs.unlink(dataloc, function(error) {
+        fs.unlink(dataLoc, function(error) {
             if (error)
-                log.error("Failed to delete " + dataloc);
+                log.error("Failed to delete " + dataLoc);
         });
     });
 }
 
-/* Creates a JSON object and populates it with the contents of the JSON Object */
-function createJSON(data) {
+/**
+ * Creates a new JSON object and populates it with the useful
+ * contents of the given data
+ * 
+ * @param data a JSON object returned by the parse method
+ * @return     a JSON object with all the useless data removed
+ */
+function manipulateJSON(data) {
     var json = {
         "WeatherDesc": "",
         "IconURL": ""
@@ -57,4 +84,5 @@ function createJSON(data) {
     return json;
 }
 
+/* Make start method available to other modules */
 exports.start = start;
