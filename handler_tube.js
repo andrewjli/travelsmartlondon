@@ -15,9 +15,7 @@ var serve = require("./serve");
 
 /**
  * Checks to see if the query matches the specified
- * format. If it does, queries the URL downloads the data,
- * otherwise returns an error. Reads the downloaded data,
- * turns it into a JSON Object and sends it to the client
+ * format. If it does, queries the URL
  * 
  * @param response the response object created by the server when the request was received
  * @param param    the client requested parameters
@@ -47,7 +45,15 @@ function start(response, param) {
     }
 }
 
+/**
+ * Reads the downloaded data, turns it into a JSON Object
+ * and sends it as a response to the client request
+ * 
+ * @param data     the downloaded data
+ * @param response the response object created by the server when the request was received
+ */
 function parse(data, response) {
+    /* Remove byte-order mark */
     var newdata = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
