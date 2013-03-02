@@ -86,7 +86,7 @@ function parse(file, response) {
 function manipulateArray(array) {
     /* Filter values based on StopPointType and StopCode1 */
     for(var j = 0; j < array.length; j++) {
-        if(array[j][2] === "null" || array[j][3] === "null") {
+        if(array[j][2] === "null" || array[j][3] !== ("\"STBC\"" || "\"STBR\"" || "\"STZZ\"" || "\"STBS\"" || "\"STSS\"" || "\"STVA\"")) {
             array.splice(j,1);
             j--;
         }
@@ -102,7 +102,7 @@ function manipulateArray(array) {
         } else {
             array[i][3] = "N/A";
         }
-        if(i === array.length-1) {
+        if(i === array.length-1 && array[i][5].substr(array[i][5].length-2,array[i][5].length-1) === "\r") {
             array[i][5] = array[i][5].substr(0,array[i][5].length-1);   /* gets rid of ] at end */
         } else {
             array[i][5] = array[i][5].substr(0,array[i][5].length-2);   /* gets rid of ]\r at end */
