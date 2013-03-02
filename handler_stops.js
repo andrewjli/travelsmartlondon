@@ -117,10 +117,8 @@ function manipulateArray(array) {
  * @return     a JSON object with all the useless data removed
  */
 function createJSON(data) {
-    var json = {
-        "stations": []
-    };
-    for (var i = 0; i < array.length; i++) {
+    var json = [];
+    for (var i = 0; i < data.length; i++) {
         var temp = {
             "stopName": "",
             "stopCode": "",
@@ -133,7 +131,7 @@ function createJSON(data) {
         temp.stopIndicator = data[i][3];
         temp.lat = data[i][4];
         temp.long = data[i][5];
-        json.Stations.push(temp);
+        json.push(temp);
     }
     return json;
 }
