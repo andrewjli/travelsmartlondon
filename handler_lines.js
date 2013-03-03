@@ -18,7 +18,7 @@ var db = require("mongojs").connect("tslDb", ["lines"]);
  * @param param    the client requested parameters
  */
 function start(response, param) {
-    db.line.find(function(error, updates) {
+    db.lines.find(function(error, updates) {
         if(error || !updates) {
             serve.error(response, 416);
         } else {
