@@ -30,8 +30,8 @@ function openDatabase(callback) {
  * 
  * @param callback callback function taking (error, collection)
  */
-function connect(db, collection, callback) {
-	var collection = db.Collection(collection);
+function connect(db, coll, callback) {
+	var collection = db.collection(coll);
 
 	return callback(null, collection);
 }
