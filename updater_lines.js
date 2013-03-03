@@ -15,8 +15,8 @@ var log = require("./log");
 var mongodb = require("mongodb");
 //var server = new mongodb.Server("localhost", 27017, { auto_reconnect: true });
 //var db = new mongodb.Db("tslDb", server, {w: 1});
-var server = new mongodb.Server;
-var db = new mongodb.Db;
+var Server = new mongodb.Server;
+var Db = new mongodb.Db;
 
 /**
  * Queries the TFL Line Status API URL
