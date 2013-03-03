@@ -14,8 +14,7 @@ var bikes = require("./updater_bike");
  * Starts the timer
  */
 function start() {
-	/* Updates lines and bikes on start */
-	lines.start();
+	/* Update bikes on start */
 	bikes.start();
 
     /* Lines refresh every 2 minutes */
