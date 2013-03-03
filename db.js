@@ -31,7 +31,7 @@ function openDatabase(callback) {
  * @param callback callback function taking (error, collection)
  */
 function connect(db, collection, callback) {
-	var collection = database.Collection(collection);
+	var collection = db.Collection(collection);
 
 	return callback(null, collection);
 }
