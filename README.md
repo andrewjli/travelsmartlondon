@@ -34,16 +34,28 @@ Tube countdown can be requested at
 
 where $$$ is the 3 letter station code and @ is the 1 letter line code
 
+### Line Status ###
+Line status can be requested at
+
+	/lines
+
+### Bike Docks ###
+Bike dock locations can be requested at
+
+	/bike?loc=######,$$$$$$,%%%
+
+where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius
+
+### Crowdedness ###
+Crowdedness can be requested at
+
+	/crowd?stop=###,$$$$
+
+where ### is the 3 digit NLC code for the station and $$$$ is the time in 24-hour military format (e.g. 0000 for midnight)
+
 ### Weather ###
 Weather can be requested at
 
 	/weather?loc=######,$$$$$$
 
 where ###### is the latitude co-ordinate and $$$$$$ is the longitude co-ordinate
-
-### Bike ###
-Bike dock locations can be requested at
-
-	/bike?loc=######,$$$$$$,%%%
-
-where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius

@@ -18,16 +18,6 @@ var handler_crowd = require("./handler_crowd");
 var handler_weather = require("./handler_weather");
 
 /**
- * The handler to serve the index page
- * 
- * @param response the response object created by the server when the request was received
- * @param param    the client requested parameters
- */
-function index(response, param) {
-    serve.webpage(response, "index");
-}
-
-/**
  * The handler to serve bus countdown data
  * 
  * @param response the response object created by the server when the request was received
@@ -102,8 +92,6 @@ function weather(response, param) {
  * needs to be manually added to the handle object
  */
 var handle = {};
-handle["/"] = index;
-handle["/index"] = index;
 handle["/bus"] = bus;
 handle["/stops"] = stops;
 handle["/tube"] = tube;
