@@ -58,7 +58,7 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }, { }));
+    var db = new Db("tslDb", new Server("localhost", 27017, { w: 1, auto_reconnect: true }, { }));
     db.open(function(error, database){
         if(database) {
             var collection = database.collection("bike");
@@ -98,7 +98,7 @@ function saveToDb(collection, data) {
             dbDocks: data.stations.station[i].nbDocks[0]
         };
 
-        collection.insert(station, { w: 1 }, function(error, result) {
+        collection.insert(station, function(error, result) {
             if(error) {
                 log.error("Bike update - Error storing JSON object " + i + ": " + error);
             }

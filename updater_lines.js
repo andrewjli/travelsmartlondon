@@ -58,7 +58,7 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }, { }));
+    var db = new Db("tslDb", new Server("localhost", 27017, { w: 1, auto_reconnect: true }, { }));
     db.open(function(error, database){
         if(database) {
             var collection = database.collection("lines");
@@ -94,7 +94,7 @@ function saveToDb(collection, data) {
             statusDetails : data.ArrayOfLineStatus.LineStatus[i].$.StatusDetails
         };
 
-        collection.insert(line, { w: 1 }, function(error, result) {
+        collection.insert(line, function(error, result) {
             if(error) {
                 log.error("Line update - Error storing JSON object " + i + ": " + error);
             }
