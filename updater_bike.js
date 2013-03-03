@@ -11,7 +11,11 @@ var http = require("http");
 var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
 var log = require("./log");
-var db = require('./db');
+//var db = require('./db');
+var mongodb = require("mongodb");
+var server = new mongodb.Server("localhost", 27017, { auto_reconnect: true });
+var db = new mongodb.Db("tslDb", server, {w: 1});;
+
 
 /**
  * Queries the TFL Bike API URL
@@ -56,7 +60,26 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    db.openDatabase(function(error, database) {
+    db.open(function(error, database){
+        if(database) {
+            var collection = database.collection("bike");
+            collection.remove(function(error) {
+                if(error) {
+                    log.error("Bike update - Existing data could not be cleared: " + error);
+                }
+                else {
+                    log.info("Bike update - Existing data cleared");
+                }
+            });
+            saveToDb(collection, data);
+            database.close();
+        } else {
+            log.error("Bike update - Could not open database: " + error);
+        }
+    });
+
+    /* Removed new implementation because it wasn't working */
+    /*db.openDatabase(function(error, database) {
         if(error) {
             log.error(error);
         }
@@ -74,7 +97,7 @@ function getDb(data) {
             });
             saveToDb(collection, data);
         });
-    });
+    });*/
 }
 
 /**
