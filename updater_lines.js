@@ -58,7 +58,7 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    var db = new Db("tslDb", new Server("localhost", 27017, { w: 1, auto_reconnect: true }, { }));
+    var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
     db.open(function(error, database){
         if(database) {
             var collection = database.collection("lines");
