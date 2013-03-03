@@ -38,6 +38,7 @@ function getResult(response, param) {
         } else {
             console.log(time);
             var timeInt = extractTime(time);
+            console.log(timeInt);
             var hour = time.substring(0,2);
             if(hour !== ("02", "03", "04")) {
                 var result = JSON.stringify(station[0][timeInt]);
@@ -59,13 +60,20 @@ function getResult(response, param) {
  * @param time the client requested time
  */
 function extractTime(time) {
+    function pad(n) {
+        if(n < 10) {
+            return '0'+n;
+        } else {
+            return n;
+        }
+    }
     var hours = parseInt(time.substring(0,2),10);
     var minutes = parseInt(time.substring(2));
     var interval = Math.floor(minutes/15)*15
     if(interval != 45) {
-        return (hours+interval+"-"+hours+(interval+15));
+        return (pad(hours)+pad(interval)+"-"+pad(hours)+pad(interval+15));
     } else {
-        return (hours+interval+"-"+(hours+1)+"00");
+        return (pad(hours)+pad(interval)+"-"+pad(hours+1)+"00");
     }
 }
 
