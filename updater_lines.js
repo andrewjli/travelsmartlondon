@@ -12,8 +12,8 @@ var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
 var log = require("./log");
 var MongoClient = require("mongodb").MongoClient;
-var Db = MongoClient.Db;
-var Server = MongoClient.Server;
+var Db = require("mongodb").Db;
+var Server = require("mongodb").Server;
 
 /**
  * Queries the TFL Line Status API URL
@@ -58,8 +58,8 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    this.db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }, { }));
-    this.db.open(function(error, database){
+    var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }, { }));
+    db.open(function(error, database){
         if(database) {
             var collection = database.collection("lines");
             collection.remove(function(error) {
