@@ -11,9 +11,9 @@ var http = require("http");
 var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
 var log = require("./log");
-var MongoClient = require("mongodb").MongoClient;
-var Db = require("mongodb").Db;
-var Server = require("mongodb").Server;
+var mongodb = require("mongodb");
+var server = new mongodb.Server("localhost", 27017, { auto_reconnect: true });
+var db = new mongodb.Db("tslDb", server, {w: 1});;
 
 /**
  * Queries the TFL Bike API URL
@@ -58,7 +58,6 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
     db.open(function(error, database){
         if(database) {
             var collection = database.collection("bike");
