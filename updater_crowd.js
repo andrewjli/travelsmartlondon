@@ -46,6 +46,7 @@ function updateData() {
                         }
                     });
                 }
+                log.info("Crowdedness update - New data successfully stored");
             } else {
                 log.error("Crowdedness update - Could not open database: " + error);
             }
