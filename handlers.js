@@ -14,7 +14,7 @@ var handler_stops = require("./handler_stops");
 var handler_tube = require("./handler_tube");
 var handler_bike = require("./handler_bike");
 var handler_lines = require("./handler_lines");
-//var handler_crowd = require("./handler_crowd");
+var handler_crowd = require("./handler_crowd");
 var handler_weather = require("./handler_weather");
 
 /**
@@ -109,7 +109,7 @@ handle["/stops"] = stops;
 handle["/tube"] = tube;
 handle["/bike"] = bike;
 handle["/lines"] = lines;
-//handle["/crowd"] = crowd;
+handle["/crowd"] = crowd;
 handle["/weather"] = weather;
 
 /*
