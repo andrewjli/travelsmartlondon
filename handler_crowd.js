@@ -29,7 +29,7 @@ function start(response, param) {
 function getResult(response, param) {
     var tarray = param.split("=");
     var paramarray = tarray[1].split(",");
-    var code = paramarray[0];
+    var code = parseInt(paramarray[0]);
     var time = paramarray[1];
 
     db.crowd.find({ nlc : code }, function(error, station) {
@@ -40,7 +40,8 @@ function getResult(response, param) {
             var timeInt = extractTime(time);
             console.log(timeInt);
             var hour = time.substring(0,2);
-            if(hour !== ("02", "03", "04")) {
+            console.log(hour);
+            if(hour !== ("02" || "03" || "04")) {
                 var result = JSON.stringify(station[0][timeInt]);
                 if(result !== "undefined") {
                     serve.jsonobj(response, result);
@@ -73,7 +74,11 @@ function extractTime(time) {
     if(interval != 45) {
         return (pad(hours)+pad(interval)+"-"+pad(hours)+pad(interval+15));
     } else {
-        return (pad(hours)+pad(interval)+"-"+pad(hours+1)+"00");
+        if(hours == 23) {
+            return (pad(hours)+pad(interval)+"-"+"0000");
+        } else {
+            return (pad(hours)+pad(interval)+"-"+pad(hours+1)+"00");
+        }
     }
 }
 
