@@ -30,10 +30,8 @@ function updateData() {
       
         var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
         db.open(function(error, database) {
-            if(error) {
-                log.error(error)
-            } else {
-                var collection = data.collection("crowd");
+            if(database) {
+                var collection = database.collection("crowd");
                 collection.remove(function(error) {
                     if(error) {
                         log.error("Crowdedness update - Existing data could not be cleared: " + error);
@@ -48,6 +46,8 @@ function updateData() {
                         }
                     });
                 }
+            } else {
+                log.error("Crowdedness update - Could not open database: " + error);
             }
         });
     });
