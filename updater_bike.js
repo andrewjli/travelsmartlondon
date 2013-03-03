@@ -58,8 +58,8 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    Db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }, { }));
-    Db.open(function(error, database){
+    this.db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }, { }));
+    this.db.open(function(error, database){
         if(database) {
             var collection = database.collection("bike");
             collection.remove(function(error) {
