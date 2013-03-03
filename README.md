@@ -21,7 +21,7 @@ Bus countdown can be requested at
 where ##### is the 5 digit bus stop code
 
 ### Bus Stop Query ###
-Bus stop query can be requested at
+Bus stop locations can be requested at
 
 	/stops?loc=######,$$$$$$,%%%
 
@@ -40,3 +40,10 @@ Weather can be requested at
 	/weather?loc=######,$$$$$$
 
 where ###### is the latitude co-ordinate and $$$$$$ is the longitude co-ordinate
+
+### Bike ###
+Bike dock locations can be requested at
+
+	/bike?loc=######,$$$$$$,%%%
+
+where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius
