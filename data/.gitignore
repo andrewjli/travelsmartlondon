@@ -1,3 +1,4 @@
 *.json
+!crowdedness.json
 *.xml
 *.txt
