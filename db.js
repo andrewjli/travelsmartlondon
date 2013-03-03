@@ -31,7 +31,7 @@ function openDatabase(callback) {
  * @param callback callback function taking (error, collection)
  */
 function connect(db, coll, callback) {
-	var collection = db.collection(coll);
+	var collection = mongodb.collection(coll);
 
 	return callback(null, collection);
 }
