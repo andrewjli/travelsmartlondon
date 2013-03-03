@@ -88,10 +88,10 @@ function getDb(data) {
 function saveToDb(collection, data) {
     for (var i = 0; i < data.ArrayOfLineStatus.LineStatus.length; i++) {
         var line = {
-            lineID : json.ArrayOfLineStatus.LineStatus[i].Line[0].$.ID,
-            lineName : json.ArrayOfLineStatus.LineStatus[i].Line[0].$.Name,
-            statusDescription: json.ArrayOfLineStatus.LineStatus[i].Status[0].$.Description,
-            statusDetails : json.ArrayOfLineStatus.LineStatus[i].$.StatusDetails
+            lineID : data.ArrayOfLineStatus.LineStatus[i].Line[0].$.ID,
+            lineName : data.ArrayOfLineStatus.LineStatus[i].Line[0].$.Name,
+            statusDescription: data.ArrayOfLineStatus.LineStatus[i].Status[0].$.Description,
+            statusDetails : data.ArrayOfLineStatus.LineStatus[i].$.StatusDetails
         };
 
         collection.insert(line, { w: 1 }, function(error, result) {
