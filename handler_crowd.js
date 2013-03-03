@@ -36,10 +36,11 @@ function getResult(response, param) {
         if(error || !station) {
             serve.error(416);
         } else {
-            var time = extractTime(time);
+            console.log(time);
+            var timeInt = extractTime(time);
             var hour = time.substring(0,2);
             if(hour !== ("02", "03", "04")) {
-                var result = JSON.stringify(station[0][time]);
+                var result = JSON.stringify(station[0][timeInt]);
                 if(result !== "undefined") {
                     serve.jsonobj(response, result);
                 } else { 
