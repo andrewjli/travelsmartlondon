@@ -57,8 +57,8 @@ function parse(data, response) {
     data = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
-        json = createJSON(result);
-        serve.jsonobj(response, result /* json */);
+        var json = createJSON(result);
+        serve.jsonobj(response, json);
     });
     
     parser.parseString(data);
@@ -76,19 +76,19 @@ function createJSON(data) {
         LineName: "",
         Platform: []
     };
-    for(var i = 0, i < sizeof(data.ROOT.S[0].P); i++) {
+    for(var i = 0; i < data.ROOT.S[0].P.length; i++) {
         var temp = {
             "PlatformName": "",
             "Trains": []
         };
-        temp.platformName = ROOT.S[0].P[n].$.N
-        for(var j = 0, j < sizeof(data.ROOT.S[0].P[i].T); j++) {
+        temp.PlatformName = data.ROOT.S[0].P[i].$.N;
+        for(var j = 0; j < data.ROOT.S[0].P[i].T.length; j++) {
             var train = {
                 "Destination": "",
                 "TimeTo": "",
             };
-            train.Destination = data.ROOT.LineName.S[0].P[i].T[j].$.Destination
-            train.TimeTo = data.ROOT.LineName.S[0].P[i].T[j].$.TimeTo
+            train.Destination = data.ROOT.LineName.S[0].P[i].T[j].$.Destination;
+            train.TimeTo = data.ROOT.LineName.S[0].P[i].T[j].$.TimeTo;
             temp.Trains.push(train);
         }
         json.Platform.push(temp);
