@@ -57,7 +57,7 @@ function parse(data, response) {
     data = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
-        //json = createJSON(result);                            /* TO DO */
+        json = createJSON(result);
         serve.jsonobj(response, result /* json */);
     });
     
@@ -73,8 +73,26 @@ function parse(data, response) {
  */
 function createJSON(data) {
     var json = {
-
+        LineName: "",
+        Platform: []
     };
+    for(var i = 0, i < sizeof(data.ROOT.S[0].P); i++) {
+        var temp = {
+            "PlatformName": "",
+            "Trains": []
+        };
+        temp.platformName = ROOT.S[0].P[n].$.N
+        for(var j = 0, j < sizeof(data.ROOT.S[0].P[i].T); j++) {
+            var train = {
+                "Destination": "",
+                "TimeTo": "",
+            };
+            train.Destination = data.ROOT.LineName.S[0].P[i].T[j].$.Destination
+            train.TimeTo = data.ROOT.LineName.S[0].P[i].T[j].$.TimeTo
+            temp.Trains.push(train);
+        }
+        json.Platform.push(temp);
+    }
     return json;
 }
 
