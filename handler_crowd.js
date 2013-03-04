@@ -18,7 +18,7 @@ var db = require("mongojs").connect("tslDb", ["crowd"]);
  * @param param    the client requested parameters
  */
 function start(response, param) {
-    var regex = /\?[Ss]top\=[5-9][0-9][0-9],([01][0-9]|2[0-3])[0-5][0-9]/;
+    var regex = /\?[Ss]top\=[5-9][0-9][0-9],((0[^234]|1[0-9]|2[0-3])[0-5][0-9])$/;
     if(regex.test(param)) {
         getResult(response, param);
     } else {
