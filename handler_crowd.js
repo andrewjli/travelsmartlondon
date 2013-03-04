@@ -37,8 +37,7 @@ function getResult(response, param) {
         } else {
             var timeInt = extractTime(time);
             var result = JSON.stringify(station[0][timeInt]);
-            console.log(result);
-            console.log(result.substring(3,result.length-2));
+            result = result.substring(1,result.length-1);
             if(result !== "undefined") {
                 serve.jsonobj(response, result);
             } else { 
