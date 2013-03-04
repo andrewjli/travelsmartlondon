@@ -73,9 +73,12 @@ function parse(data, response) {
  */
 function createJSON(data) {
     var json = {
-        LineName: "",
-        Platform: []
+        "LineName": "",
+        "StationName": "",
+        "Platform": []
     };
+    json.LineName = data.ROOT.LineName[0];
+    json.StationName = data.ROOT.S[0].$.N.substring(0,data.ROOT.S[0].$.N.length-1);
     for(var i = 0; i < data.ROOT.S[0].P.length; i++) {
         var temp = {
             "PlatformName": "",
@@ -87,8 +90,16 @@ function createJSON(data) {
                 "Destination": "",
                 "TimeTo": "",
             };
-            train.Destination = data.ROOT.LineName.S[0].P[i].T[j].$.Destination;
-            train.TimeTo = data.ROOT.LineName.S[0].P[i].T[j].$.TimeTo;
+            train.Destination = data.ROOT.S[0].P[i].T[j].$.Destination;
+            if(data.ROOT.S[0].P[i].T[j].$.TimeTo === "-") {
+                train.TimeTo = "At Platform";
+            } else {
+                var tarray = data.ROOT.S[0].P[i].T[j].$.TimeTo.split(":");
+                if(tarray[0] === "0") {
+                    train.TimeTo = "Due";
+                }
+                train.TimeTo = tarray[0] + " min";
+            }
             temp.Trains.push(train);
         }
         json.Platform.push(temp);
