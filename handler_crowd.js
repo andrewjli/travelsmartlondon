@@ -36,20 +36,13 @@ function getResult(response, param) {
         if(error || !station) {
             serve.error(416);
         } else {
-            console.log(time);
             var timeInt = extractTime(time);
-            console.log(timeInt);
             var hour = time.substring(0,2);
-            console.log(hour);
-            if(hour !== ("02" || "03" || "04")) {
-                var result = JSON.stringify(station[0][timeInt]);
-                if(result !== "undefined") {
-                    serve.jsonobj(response, result);
-                } else { 
-                    serve.error(response, 500);
-                }
-            } else {
-                serve.error(response, 416);
+            var result = JSON.stringify(station[0][timeInt]);
+            if(result !== "undefined") {
+                serve.jsonobj(response, result);
+            } else { 
+                serve.error(response, 500);
             }
         }
     })
@@ -65,7 +58,7 @@ function extractTime(time) {
         if(n < 10) {
             return '0'+n;
         } else {
-            return n;
+            return n.toString();
         }
     }
     var hours = parseInt(time.substring(0,2),10);
@@ -74,11 +67,7 @@ function extractTime(time) {
     if(interval != 45) {
         return (pad(hours)+pad(interval)+"-"+pad(hours)+pad(interval+15));
     } else {
-        if(hours == 23) {
-            return (pad(hours)+pad(interval)+"-"+"0000");
-        } else {
-            return (pad(hours)+pad(interval)+"-"+pad(hours+1)+"00");
-        }
+        return (pad(hours)+pad(interval)+"-"+pad(hours+1)+"00");
     }
 }
 
