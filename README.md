@@ -1,5 +1,5 @@
-# TravelSmart London 2.0 #
-This is a rewrite of the server-side program for the TravelSmart London platform.
+# TravelSmart London #
+This is the server-side API program for the TravelSmart London platform.
 
 ## Installation ##
 Clone the repository to your workspace.
@@ -23,7 +23,7 @@ where ##### is the 5 digit bus stop code
 ### Bus Stop Query ###
 Bus stop locations can be requested at
 
-	/stops?loc=######,$$$$$$,%%%
+    /stops?loc=######,$$$$$$,%%%
 
 where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius
 
@@ -37,25 +37,25 @@ where $$$ is the 3 letter station code and @ is the 1 letter line code
 ### Line Status ###
 Line status can be requested at
 
-	/lines
+    /lines
 
 ### Bike Docks ###
 Bike dock locations can be requested at
 
-	/bike?loc=######,$$$$$$,%%%
+    /bike?loc=######,$$$$$$,%%%
 
 where ###### is the latitude co-ordinate, $$$$$$ is the longitude co-ordinate and %%% is the radius
 
 ### Crowdedness ###
 Crowdedness can be requested at
 
-	/crowd?stop=###,$$$$
+    /crowd?stop=###,$$$$
 
 where ### is the 3 digit NLC code for the station and $$$$ is the time in 24-hour military format (e.g. 0000 for midnight)
 
 ### Weather ###
 Weather can be requested at
 
-	/weather?loc=######,$$$$$$
+    /weather?loc=######,$$$$$$
 
 where ###### is the latitude co-ordinate and $$$$$$ is the longitude co-ordinate
