@@ -7,7 +7,6 @@
 
 /* Required modules */
 var serve = require("./serve");
-var log = require("./log");
 var db = require("mongojs").connect("tslDb", ["crowd"]);
 
 /**
@@ -29,7 +28,7 @@ function start(response, param) {
 function getResult(response, param) {
     var tarray = param.split("=");
     var paramarray = tarray[1].split(",");
-    var code = parseInt(paramarray[0]);
+    var code = parseInt(paramarray[0],10);
     var time = paramarray[1];
 
     db.crowd.find({ nlc : code }, function(error, station) {
@@ -37,15 +36,16 @@ function getResult(response, param) {
             serve.error(416);
         } else {
             var timeInt = extractTime(time);
-            var hour = time.substring(0,2);
             var result = JSON.stringify(station[0][timeInt]);
+            console.log(result);
+            console.log(result.substring(3,result.length-2));
             if(result !== "undefined") {
                 serve.jsonobj(response, result);
             } else { 
                 serve.error(response, 500);
             }
         }
-    })
+    });
 }
 
 /**
@@ -62,8 +62,8 @@ function extractTime(time) {
         }
     }
     var hours = parseInt(time.substring(0,2),10);
-    var minutes = parseInt(time.substring(2));
-    var interval = Math.floor(minutes/15)*15
+    var minutes = parseInt(time.substring(2),10);
+    var interval = Math.floor(minutes/15)*15;
     if(interval != 45) {
         return (pad(hours)+pad(interval)+"-"+pad(hours)+pad(interval+15));
     } else {
