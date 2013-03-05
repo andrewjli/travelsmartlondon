@@ -13,6 +13,8 @@ var parser = new xml2js.Parser();
 
 /**
  * Queries the TFL Bike API URL
+ *
+ * @return result the parsed JSON result
  */
 function start() {
     var tflurl = "http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml";
@@ -33,47 +35,17 @@ function start() {
  * and then returns it
  * 
  * @param data     the downloaded data
+ * @return result  the parsed JSON result
  */
 function parse(data) {
     /* Remove byte-order mark */
     data = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
-        updateDb(result);
+        return result;
     });
     
     parser.parseString(data);
-}
-
-/**
- * Stores the data into the database
- * 
- * @param data     the parsed downloaded data
- */
-function updateDb(data) {
-    log.info("Bike update - Started");
-    data.stations.station.forEach(function(stn) {
-        bikedb.bike.update( {
-            id : parseInt(stn.id[0],10)
-        }, {
-            $set: {
-                name: stn.name[0],
-                lat: parseFloat(stn.lat[0]),
-                long: parseFloat(stn.long[0]),
-                locked: stn.locked[0],
-                nbBikes: stn.nbBikes[0],
-                nbEmptyDocks: stn.nbEmptyDocks[0],
-                dbDocks: stn.nbDocks[0]
-            }
-        }, {
-            multi: true
-        }, function(error) {
-            if(error) {
-                log.error("Bike update - Error updating bike dock " + stn.id[0] + ": " + error);
-            }
-        });
-    });
-    log.info("Bike update - New data successfully stored");
 }
 
 /* Make start method available to other modules */
