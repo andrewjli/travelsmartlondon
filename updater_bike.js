@@ -13,6 +13,8 @@ var parser = new xml2js.Parser();
 
 /**
  * Queries the TFL Bike API URL
+ *
+ * @return result the parsed JSON result
  */
 function start() {
     var tflurl = "http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml";
@@ -23,7 +25,7 @@ function start() {
         });
         
         result.on("end", function(){
-            parse(data);
+            return parse(data);
         });
     });
 }
