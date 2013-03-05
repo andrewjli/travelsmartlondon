@@ -36,10 +36,8 @@ function start(response, param) {
                 data += chunk;
             });
             
-            result.on("end", function(){
-                if(data !== null) {
-                    parse(data, response);
-                }
+            result.on("end", function() {
+                parse(data, response);
             });
         });
     } else {
@@ -62,8 +60,11 @@ function parse(data, response) {
         var json = createJSON(result);
         serve.jsonobj(response, json);
     });
-    
-    parser.parseString(data);
+    if(data.substr(0,1) !== "<") {
+        serve.error(response, 416);
+    } else {
+        parser.parseString(data);
+    }
 }
 
 /**
