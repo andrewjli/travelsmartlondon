@@ -12,7 +12,6 @@ var http = require("http");
 var url = require("url");
 var log = require("./log");
 var timer = require("./timer");
-var updater_bike = require("./updater_bike");
 
 /**
  * Starts a server that listens on the specified port and IP address
@@ -52,7 +51,6 @@ function start(route, handle) {
     log.info("Server started");
     
     /* Start timer for parsers that need regular refreshing */
-    updater_bike.start();
     timer.start();
     log.info("Timer started");
 }
