@@ -16,6 +16,7 @@ var db = require("./db");
 /**
  * Queries the TFL Bike API URL
  */
+function start() {
     log.info("Bike update - Started");
     var tflurl = "http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml";
     
