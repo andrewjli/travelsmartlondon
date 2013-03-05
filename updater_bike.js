@@ -61,25 +61,30 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    for (var i = 0; i < data.stations.station.length; i++) {
-        db.bike.update({
-            id : data.stations.station[i].id[0]
+/*    db.bike.find( { id : "1" }, function(error, result) {
+        console.log(result);
+    });*/
+    data.stations.station.forEach(function(stn) {
+        db.bike.update( {
+            id : parseInt(stn.id[0],10)
         }, {
             $set: {
-                name: data.stations.station[i].name[0],
-                lat: parseFloat(data.stations.station[i].lat[0]),
-                long: parseFloat(data.stations.station[i].long[0]),
-                locked: data.stations.station[i].locked[0],
-                nbBikes: data.stations.station[i].nbBikes[0],
-                nbEmptyDocks: data.stations.station[i].nbEmptyDocks[0],
-                dbDocks: data.stations.station[i].nbDocks[0]
+                name: stn.name[0],
+                lat: parseFloat(stn.lat[0]),
+                long: parseFloat(stn.long[0]),
+                locked: stn.locked[0],
+                nbBikes: stn.nbBikes[0],
+                nbEmptyDocks: stn.nbEmptyDocks[0],
+                dbDocks: stn.nbDocks[0]
             }
         }, {
             multi: true
         }, function(error) {
-            log.error("Bike update - Error updating bike dock " + data.stations.station[i].id[0] + ": " + error);
+            if(error) {
+                log.error("Bike update - Error updating bike dock " + stn.id[0] + ": " + error);
+            }
         });
-    }
+    });
     log.info("Bike update - New data successfully stored");
     
     /*var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
