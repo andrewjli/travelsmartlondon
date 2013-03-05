@@ -10,7 +10,6 @@
 var http = require("http");
 var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
-var log = require("./log");
 
 /**
  * Queries the TFL Bike API URL
