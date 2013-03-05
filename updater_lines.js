@@ -39,7 +39,7 @@ function start() {
 
 /**
  * Reads the downloaded data, turns it into a JSON Object
- * and sends it as a response to the client request
+ * and stores it in the database
  * 
  * @param data     the downloaded data
  */
