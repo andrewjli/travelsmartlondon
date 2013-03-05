@@ -30,7 +30,7 @@ function start() {
  */
 function updateBike() {
 	log.info("Bike update - Started");
-	var data = bikes.start();
+	var data = updater_bike.start();
     data.stations.station.forEach(function(stn) {
         bikedb.bike.update( {
             id : parseInt(stn.id[0],10)
