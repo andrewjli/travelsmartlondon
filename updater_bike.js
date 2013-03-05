@@ -11,12 +11,12 @@ var http = require("http");
 var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
 var log = require("./log");
-//var db = require('./db');
-var mongodb = require("mongodb");
+var db = require("mongojs").connect("tslDb", ["bike"]);
+//var mongodb = require("mongodb");
 //var server = new mongodb.Server("localhost", 27017, { auto_reconnect: true });
 //var db = new mongodb.Db("tslDb", server, {w: 1});
-var Server = mongodb.Server;
-var Db = mongodb.Db;
+//var Server = mongodb.Server;
+//var Db = mongodb.Db;
 
 /**
  * Queries the TFL Bike API URL
@@ -61,7 +61,28 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function getDb(data) {
-    var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
+    for (var i = 0; i < data.stations.station.length; i++) {
+        db.bike.update({
+            id : data.stations.station[i].id[0]
+        }, {
+            $set: {
+                name: data.stations.station[i].name[0],
+                lat: parseFloat(data.stations.station[i].lat[0]),
+                long: parseFloat(data.stations.station[i].long[0]),
+                locked: data.stations.station[i].locked[0],
+                nbBikes: data.stations.station[i].nbBikes[0],
+                nbEmptyDocks: data.stations.station[i].nbEmptyDocks[0],
+                dbDocks: data.stations.station[i].nbDocks[0]
+            }
+        }, {
+            multi: true
+        }, function(error) {
+            log.error("Bike update - Error updating bike dock " + data.stations.station[i].id[0] + ": " + error);
+        });
+    }
+    log.info("Bike update - New data successfully stored");
+    
+    /*var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
     db.open(function(error, database){
         if(database) {
             var collection = database.collection("bike");
@@ -78,7 +99,7 @@ function getDb(data) {
         } else {
             log.error("Bike update - Could not open database: " + error);
         }
-    });
+    });*/
 
     /* Removed new implementation because it wasn't working */
     /*db.openDatabase(function(error, database) {
