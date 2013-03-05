@@ -37,7 +37,9 @@ function start(response, param) {
             });
             
             result.on("end", function(){
-                parse(data, response);
+                if(data !== null) {
+                    parse(data, response);
+                }
             });
         });
     } else {
