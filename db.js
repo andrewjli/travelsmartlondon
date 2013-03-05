@@ -54,7 +54,6 @@ function updateBike() {
     });
     log.info("Bike update - New data successfully stored");
 }
-}
 
 /* Make methods available to other modules */
 exports.start = start;
