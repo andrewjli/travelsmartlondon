@@ -11,11 +11,20 @@ var http = require("http");
 var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
 var log = require("./log");
-var db = require("./db");
+var db = require("mongojs").connect("tslDb", ["bike"]);
 
 /**
  * Queries the TFL Bike API URL
  */
+function start() {
+    /* Bikes refresh every 5 minutes */
+    setInterval(start, 300000);
+}
+
+/**
+ * Queries the TFL Bike API URL
+ */
+var start = function queryData() {
     log.info("Bike update - Started");
     var tflurl = "http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml";
     
@@ -55,9 +64,8 @@ function parse(data) {
  * @param data     the downloaded data
  */
 function updateDb(data) {
-    var collection = db.getCollection("bike")
     data.stations.station.forEach(function(stn) {
-        collection.update( {
+        db.bike.update( {
             id : parseInt(stn.id[0],10)
         }, {
             $set: {
