@@ -16,6 +16,8 @@ var handler_bike = require("./handler_bike");
 var handler_lines = require("./handler_lines");
 var handler_crowd = require("./handler_crowd");
 var handler_weather = require("./handler_weather");
+var handler_ratings = require("./handler_ratings");
+var updater_ratings = require("./updater_ratings");
 
 /**
  * The handler to serve bus countdown data
@@ -87,6 +89,27 @@ function weather(response, param) {
 	handler_weather.start(response, param);
 }
 
+/**
+ * The handler to serve ratings per user
+ * 
+ * @param response the response object created by the server when the request was received
+ * @param param the client requested parameters
+ */ 
+function getRatings(response, param) {
+    handler_ratings.start(response, param);
+} 
+
+
+/** 
+ * Post request from user to store new ratings
+ * 
+ * @param response response the response object created by the server when the request was received
+ * @param param
+ */ 
+function postRatings(response, param) {
+    updater_ratings.start(response, param);
+}
+
 /*
  * Make handlers available to be executed. Each handler
  * needs to be manually added to the handle object
@@ -99,6 +122,8 @@ handle["/bike"] = bike;
 handle["/lines"] = lines;
 handle["/crowd"] = crowd;
 handle["/weather"] = weather;
+handle["/getratings"] = getRatings;
+handle["/postratings"] = postRatings;
 
 /*
  * Make the handle object available to other modules
