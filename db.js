@@ -13,13 +13,11 @@ var bikedb = require("mongojs").connect("tslDb", ["bike"]);
 var linedb = require("mongojs").connect("tslDb", ["line"]);
 
 /**
- * Opens the database
- * 
- * @param callback callback function taking (error, db)
+ * Starts the update timer
  */
 function start() {
-	updateBike();
-    setInterval(updateBike, 30000)
+	bikes.start();
+    setInterval(bikes.start, 30000)
 }
 
 /**
