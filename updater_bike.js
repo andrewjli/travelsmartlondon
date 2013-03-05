@@ -14,7 +14,7 @@ var parser = new xml2js.Parser();
 /**
  * Queries the TFL Bike API URL
  */
-function start() {
+function start(db) {
     var tflurl = "http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml";
     http.get(tflurl, function(result) {
         var data = "";
@@ -23,7 +23,7 @@ function start() {
         });
         
         result.on("end", function(){
-            return parse(data);
+            return parse(db, data);
         });
     });
 }
@@ -34,12 +34,12 @@ function start() {
  * 
  * @param data     the downloaded data
  */
-function parse(data) {
+function parse(db, data) {
     /* Remove byte-order mark */
     data = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
-        updateDb(result);
+        updateDb(db, result);
     });
     
     parser.parseString(data);
@@ -50,10 +50,10 @@ function parse(data) {
  * 
  * @param data     the parsed downloaded data
  */
-function updateDb(data) {
+function updateDb(db, data) {
     log.info("Bike update - Started");
     data.stations.station.forEach(function(stn) {
-        bikedb.bike.update( {
+        db.bike.update( {
             id : parseInt(stn.id[0],10)
         }, {
             $set: {
