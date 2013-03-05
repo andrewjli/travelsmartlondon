@@ -90,7 +90,11 @@ function createJSON(data) {
                 "Destination": "",
                 "TimeTo": "",
             };
-            train.Destination = data.ROOT.S[0].P[i].T[j].$.Destination;
+            if(data.ROOT.S[0].P[i].T[j].$.Destination === "Unknown") {
+                train.TimeTo = "See front of train";
+            } else {
+                train.Destination = data.ROOT.S[0].P[i].T[j].$.Destination;
+            }
             if(data.ROOT.S[0].P[i].T[j].$.TimeTo === "-") {
                 train.TimeTo = "At Platform";
             } else {
