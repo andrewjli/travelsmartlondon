@@ -12,16 +12,19 @@ var xml2js = require("xml2js");
 var parser = new xml2js.Parser();
 var log = require("./log");
 var db = require("mongojs").connect("tslDb", ["bike"]);
-//var mongodb = require("mongodb");
-//var server = new mongodb.Server("localhost", 27017, { auto_reconnect: true });
-//var db = new mongodb.Db("tslDb", server, {w: 1});
-//var Server = mongodb.Server;
-//var Db = mongodb.Db;
 
 /**
  * Queries the TFL Bike API URL
  */
 function start() {
+    /* Bikes refresh every 5 minutes */
+    setInterval(start, 300000);
+}
+
+/**
+ * Queries the TFL Bike API URL
+ */
+var start = function queryData() {
     log.info("Bike update - Started");
     var tflurl = "http://www.tfl.gov.uk/tfl/syndication/feeds/cycle-hire/livecyclehireupdates.xml";
     
@@ -48,7 +51,7 @@ function parse(data) {
     data = data.replace("\ufeff", "");
     
     parser.on("end", function(result) {
-        getDb(result);
+        updateDb(result);
     });
     
     parser.parseString(data);
@@ -60,10 +63,7 @@ function parse(data) {
  * 
  * @param data     the downloaded data
  */
-function getDb(data) {
-/*    db.bike.find( { id : "1" }, function(error, result) {
-        console.log(result);
-    });*/
+function updateDb(data) {
     data.stations.station.forEach(function(stn) {
         db.bike.update( {
             id : parseInt(stn.id[0],10)
@@ -85,75 +85,6 @@ function getDb(data) {
             }
         });
     });
-    log.info("Bike update - New data successfully stored");
-    
-    /*var db = new Db("tslDb", new Server("localhost", 27017, { auto_reconnect: true }), {w: 1});
-    db.open(function(error, database){
-        if(database) {
-            var collection = database.collection("bike");
-            collection.remove(function(error) {
-                if(error) {
-                    log.error("Bike update - Existing data could not be cleared: " + error);
-                }
-                else {
-                    log.info("Bike update - Existing data cleared");
-                }
-            });
-            saveToDb(collection, data);
-            database.close();
-        } else {
-            log.error("Bike update - Could not open database: " + error);
-        }
-    });*/
-
-    /* Removed new implementation because it wasn't working */
-    /*db.openDatabase(function(error, database) {
-        if(error) {
-            log.error(error);
-        }
-        db.connect(db, "bike", function(error, collection) {
-            if(error) {
-                log.error(error);
-            }
-            collection.remove(function(error) {
-                if(error) {
-                    log.error("Bike update - Existing data could not be cleared: " + error);
-                }
-                else {
-                    log.info("Bike update - Existing data cleared");
-                }
-            });
-            saveToDb(collection, data);
-        });
-    });*/
-}
-
-/**
- * Creates a new JSON object from each entry in the existing data, populating
- * it with only useful data, then stores it in the database
- * 
- * @param collection the opened database collection
- * @param data       the downloaded data
- */
-function saveToDb(collection, data) {
-    for (var i = 0; i < data.stations.station.length; i++) {
-        var station = {
-            id : data.stations.station[i].id[0],
-            name: data.stations.station[i].name[0],
-            lat: parseFloat(data.stations.station[i].lat[0]),
-            long: parseFloat(data.stations.station[i].long[0]),
-            locked: data.stations.station[i].locked[0],
-            nbBikes: data.stations.station[i].nbBikes[0],
-            nbEmptyDocks: data.stations.station[i].nbEmptyDocks[0],
-            dbDocks: data.stations.station[i].nbDocks[0]
-        };
-
-        collection.insert(station, function(error, result) {
-            if(error) {
-                log.error("Bike update - Error storing JSON object " + i + ": " + error);
-            }
-        });
-    }
     log.info("Bike update - New data successfully stored");
 }
 
