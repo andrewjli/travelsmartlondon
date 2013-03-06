@@ -11,7 +11,7 @@ var log = require("./log");
 var db = require("mongojs").connect("tslDb", ["ratings"]);
 
 function start(response, param) {
-    var regex = /\?[Uu]ser[Nn]ame=^(,).*,(Piccadilly|District|Victoria|Circle|Hammersmith_and_City|Bakerloo|Waterloo_and_City|Central|Jubilee|Metropolitan|Northern|DLR|Overground)=([0-5])/;
+    var regex = /\?(Piccadilly|District|Victoria|Circle|Hammersmith_and_City|Bakerloo|Waterloo_and_City|Central|Jubilee|Metropolitan|Northern|DLR|Overground)=([0-5])/;
     if(regex.test(param)) {
         getResult(response, param);
     } else {
@@ -21,19 +21,30 @@ function start(response, param) {
 
 function getResult(response, param) {
     var tarray = param.split("=");
-    var paramArray = tarray[1].split(",");
-    var userName = paramArray[0];
-    var updateLine = paramArray[1];
-    var rating = paramArray[2];
+    var lineName = param[0];
+    var rating = parseInt(param[1]);
     
-    db.ratings.update({$set : { userName :  { ratings : {  updateLine : rating } } } } , function(err, updated) {
-        if(err || !updated) {
-            serve.error(response, 416);
-        } else {
-            json = {"response" : "correct"};
-            serve.jsonobj(response, json); 
-        }
-    }); 
+    db.ratings.findAndModify({
+            query : {line : lineName}, 
+            update : {$inc : {rating : 1} }, 
+            new : true, 
+            upsert : true } , function(err, updated) {
+                                if(err || !updated) {
+                                    serve.error(response, 416);
+                                } else {
+                                    db.ratings.find(function(error, ratings) {
+                                        if(error) {
+                                            serve.error(response, 416);
+                                        } else {
+                                            var json = [];
+                                            for (var x in ratings) {
+                                                json.push(ratings[x]);
+                                            }
+                                            serve.jsonobj(response, json);
+                                        }
+                                    })
+                                }
+            }); 
 }
 
 /* Makes start method available to other modules */

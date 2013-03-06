@@ -18,7 +18,7 @@ var db = require("mongojs").connect("tslDb", ["ratings"]);
  * @param param    the client requested parameters
  */
 function start(response, param) {
-        
+        //updated
     var dbFunction = function(error, result) {
             if(!error) { 
                 var json = [];
