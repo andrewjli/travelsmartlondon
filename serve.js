@@ -28,6 +28,7 @@ function error(response, code) {
             response.write(html);
             response.end();
         });
+        fs.close(html);
     }
     if(code === 416) {
         fs.readFile('./html/error416.html', function(error, html) {
@@ -38,6 +39,7 @@ function error(response, code) {
             response.write(html);
             response.end();
         });
+        fs.close(html);
     }
     if(code === 500) {
         fs.readFile('./html/error500.html', function(error, html) {
@@ -48,6 +50,7 @@ function error(response, code) {
             response.write(html);
             response.end();
         });
+        fs.close(html);
     }
 }
 
@@ -69,6 +72,7 @@ function webpage(response, page) {
         response.write(html);
         response.end();
     });
+    fs.close(html);
 }
 
 /**
