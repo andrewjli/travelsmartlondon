@@ -18,96 +18,97 @@ var db = require("mongojs").connect("tslDb", ["ratings"]);
  * @param param    the client requested parameters
  */
 function start(response, param) {
-    var dbFunction = function(error, user) {
-        if(error || !user) {
-            json = { user : {
-                    "ratings" : {
-                            "Piccadilly" : null,
-                            "District" : null,
-                            "Victoria" : null,
-                            "Circle" : null,
-                            "Hammersmith_and_City" : null,
-                            "Bakerloo" : null,
-                            "Waterloo_and_City" : null,
-                            "Central" : null,
-                            "Jubilee" : null,
-                            "Metropolitan" : null,
-                            "Northern" : null,
-                            "DLR" : null,
-                            "Overground" : null
-                    },
-                    "comments" : {}
-                }
-            }
-            db.ratings.insert(
-                json, function(err) {
-                if(error) {
-                    serve.error(response, 416);
-                    console.log("ERROR INSERTING AN OBJECT");
-                }
-            });
-            serve.jsonobj(response, json);
-            console.log(json);
-        } else {
-            var json = {"ratings" : {
-                "Piccadilly" : null,
-                "District" : null,
-                "Victoria" : null,
-                "Circle" : null,
-                "Hammersmith_and_City" : null,
-                "Bakerloo" : null,
-                "Waterloo_and_City" : null,
-                "Central" : null,
-                "Jubilee" : null,
-                "Metropolitan" : null,
-                "Northern" : null,
-                "DLR" : null,
-                "Overground" : null
-                }};
-            if(user.ratings.Piccadilly !== null) {
-                json.ratings.Piccadilly = user.ratings.Piccadilly
-            }
-            if(user.ratings.District !== null) {
-                json.ratings.District = user.ratings.District
-            } 
-            if(user.ratings.Victoria !== null) {
-                json.ratings.Victoria = user.ratings.Victoria
-            } 
-            if(user.ratings.Circle !== null) {
-                json.ratings.Circle = user.ratings.Circle
-            } 
-            if(user.ratings.Hammersmith_and_City !== null) {
-                json.ratings.Hammersmith_and_City = user.ratings.Hammersmith_and_City
-            } 
-            if(user.ratings.Waterloo_and_City !== null) {
-                json.ratings.Waterloo_and_City = user.ratings.Waterloo_and_City
-            } 
-            if(user.ratings.Central !== null) {
-                json.ratings.Central = user.ratings.Central
-            } 
-            if(user.ratings.Metropolitan !== null) {
-                json.ratings.Metropolitan = user.ratings.Metropolitan
-            } 
-            if(user.ratings.Northern !== null) {
-                json.ratings.Northern = user.ratings.Northern
-            } 
-            if(user.ratings.DLR !== null) {
-                json.ratings.DLR = user.ratings.DLR
-            } 
-            if(user.ratings.Overground !== null) {
-                json.ratings.Overground = user.ratings.Overground
-            } 
-            
-            serve.jsonobj(response, json);
-        }
-    }
-
+        
     var regex = /\?[Uu]ser[Nn]ame=.*/;
     if(regex.test(param)) {
         var tarray = param.split("=")
         var userName = tarray[1];
-        db.ratings.find(userName, dbFunction);
-        console.log("userName is :" + userName)
+        db.ratings.find(userName, function(error, user) {
+            if(!user) { 
+                console.log(userName);
+                json = { userName : {
+                        "ratings" : {
+                                "Piccadilly" : null,
+                                "District" : null,
+                                "Victoria" : null,
+                                "Circle" : null,
+                                "Hammersmith_and_City" : null,
+                                "Bakerloo" : null,
+                                "Waterloo_and_City" : null,
+                                "Central" : null,
+                                "Jubilee" : null,
+                                "Metropolitan" : null,
+                                "Northern" : null,
+                                "DLR" : null,
+                                "Overground" : null
+                        },
+                        "comments" : {}
+                    }
+                }
+                db.ratings.insert(
+                    json, function(err) {
+                    if(error) {
+                        serve.error(response, 416);
+                        console.log("ERROR INSERTING AN OBJECT");
+                    }
+                });
+                serve.jsonobj(response, json);
+                console.log(json);
+            } else {
+                var json = {"ratings" : {
+                    "Piccadilly" : null,
+                    "District" : null,
+                    "Victoria" : null,
+                    "Circle" : null,
+                    "Hammersmith_and_City" : null,
+                    "Bakerloo" : null,
+                    "Waterloo_and_City" : null,
+                    "Central" : null,
+                    "Jubilee" : null,
+                    "Metropolitan" : null,
+                    "Northern" : null,
+                    "DLR" : null,
+                    "Overground" : null
+                    }};
+                if(user.ratings.Piccadilly !== null) {
+                    json.ratings.Piccadilly = user.ratings.Piccadilly
+                }
+                if(user.ratings.District !== null) {
+                    json.ratings.District = user.ratings.District
+                } 
+                if(user.ratings.Victoria !== null) {
+                    json.ratings.Victoria = user.ratings.Victoria
+                } 
+                if(user.ratings.Circle !== null) {
+                    json.ratings.Circle = user.ratings.Circle
+                } 
+                if(user.ratings.Hammersmith_and_City !== null) {
+                    json.ratings.Hammersmith_and_City = user.ratings.Hammersmith_and_City
+                } 
+                if(user.ratings.Waterloo_and_City !== null) {
+                    json.ratings.Waterloo_and_City = user.ratings.Waterloo_and_City
+                } 
+                if(user.ratings.Central !== null) {
+                    json.ratings.Central = user.ratings.Central
+                } 
+                if(user.ratings.Metropolitan !== null) {
+                    json.ratings.Metropolitan = user.ratings.Metropolitan
+                } 
+                if(user.ratings.Northern !== null) {
+                    json.ratings.Northern = user.ratings.Northern
+                } 
+                if(user.ratings.DLR !== null) {
+                    json.ratings.DLR = user.ratings.DLR
+                } 
+                if(user.ratings.Overground !== null) {
+                    json.ratings.Overground = user.ratings.Overground
+                } 
+                
+                serve.jsonobj(response, json);
+            }
+        }
+    );
+        console.log("userName is :" + userName);
     } else {
         serve.error(response, 416);
     }
