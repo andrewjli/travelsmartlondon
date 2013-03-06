@@ -9,6 +9,7 @@
 /* Required modules */
 var http = require("http");
 var xml2js = require("xml2js");
+var log = require("./log");
 var parser = new xml2js.Parser();
 
 /**

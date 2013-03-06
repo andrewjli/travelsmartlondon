@@ -18,6 +18,7 @@ var bikedb = require("mongojs").connect("tslDb", ["bike"]);
 function start() {
     bikes.start(bikedb);
     setInterval(function() {
+        console.log("Running interval code");
     	bikes.start(bikedb)
     }, 30000)
 }
