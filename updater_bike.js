@@ -25,14 +25,13 @@ function start(db) {
         });
         
         result.on("end", function(){
-            return parse(db, data);
+            parse(db, data);
         });
     });
 }
 
 /**
  * Reads the downloaded data, turns it into a JSON Object
- * and then returns it
  * 
  * @param db   the database
  * @param data the downloaded data

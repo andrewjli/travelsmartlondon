@@ -51,9 +51,8 @@ function start(route, handle) {
     //http.createServer(onRequest).listen(process.env.PORT, process.env.IP);
     log.info("Server started");
     
-    /* Start timer for parsers that need regular refreshing */
+    /* Opens database connections and starts timers for parsers that need regular refreshing */
     db.start();
-    timer.start();
     log.info("Timer started");
 }
 
