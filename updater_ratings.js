@@ -20,15 +20,7 @@ function start(response, param) {
 } 
 
 function getResult(response, param) {
-    var tarray = param.split("=");
-    var lineName = param[0];
-    var rating = parseInt(param[1]);
-    
-    db.ratings.findAndModify({
-            query : {line : lineName}, 
-            update : {$inc : {rating : 1} }, 
-            new : true, 
-            upsert : true } , function(err, updated) {
+    var dbFunction = function(err, updated) {
                                 if(err || !updated) {
                                     serve.error(response, 416);
                                 } else {
@@ -44,7 +36,59 @@ function getResult(response, param) {
                                         }
                                     })
                                 }
-            }); 
+                    }
+    
+    var tarray = param.split("=");
+    var lineName = param[0];
+    var rating = parseInt(param[1]);
+    
+    switch(rating) {
+        case 0 : 
+            db.ratings.findAndModify({
+                query : {line : lineName}, 
+                update : {$inc : {0 : 1} }, 
+                new : true, 
+                upsert : true } , dbFunction ); 
+            break;
+        case 1 : 
+            db.ratings.findAndModify({
+                query : {line : lineName}, 
+                update : {$inc : {1 : 1} }, 
+                new : true, 
+                upsert : true } , dbFunction ); 
+            break;
+        case 2 : 
+            db.ratings.findAndModify({
+                query : {line : lineName}, 
+                update : {$inc : {2 : 1} }, 
+                new : true, 
+                upsert : true } , dbFunction ); 
+            break;
+        case 3 : 
+            db.ratings.findAndModify({
+                query : {line : lineName}, 
+                update : {$inc : {3 : 1} }, 
+                new : true, 
+                upsert : true } , dbFunction ); 
+            break;
+        case 4 : 
+            db.ratings.findAndModify({
+                query : {line : lineName}, 
+                update : {$inc : {4 : 1} }, 
+                new : true, 
+                upsert : true } , dbFunction ); 
+            break;
+        case 5 : 
+            db.ratings.findAndModify({
+                query : {line : lineName}, 
+                update : {$inc : {5 : 1} }, 
+                new : true, 
+                upsert : true } , dbFunction ); 
+            break;
+        default : 
+            serve.error(response, 416);
+            break;
+    }
 }
 
 /* Makes start method available to other modules */
