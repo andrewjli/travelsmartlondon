@@ -10,7 +10,6 @@
 var http = require("http");
 var xml2js = require("xml2js");
 var log = require("./log");
-var parser = new xml2js.Parser();
 
 /**
  * Queries the TFL Bike API URL
@@ -39,6 +38,7 @@ function start(db) {
  * @param data the downloaded data
  */
 function parse(db, data) {
+    var parser = new xml2js.Parser();
     /* Remove byte-order mark */
     data = data.replace("\ufeff", "");
     

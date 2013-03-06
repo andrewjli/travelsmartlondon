@@ -17,10 +17,10 @@ var bikedb = require("mongojs").connect("tslDb", ["bike"]);
  */
 function start() {
     bikes.start(bikedb);
-    setInterval(function() {
-        console.log("Running interval code");
+    setTimeout(start, 30000);
+/*    setInterval(function() {
     	bikes.start(bikedb)
-    }, 30000)
+    }, 30000)*/
 }
 
 /* Make methods available to other modules */
