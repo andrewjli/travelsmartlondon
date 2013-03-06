@@ -21,10 +21,10 @@ function start() {
     bikes.start(bikedb);
     setInterval(function() {
     	bikes.start(bikedb)
-    }, 30000);
+    }, 300000);
     setInterval(function() {
     	lines.start(linedb)
-    }, 15000);
+    }, 180000);
 }
 
 /* Make methods available to other modules */
