@@ -19,11 +19,8 @@ var db = require("mongojs").connect("tslDb", ["ratings"]);
  */
 function start(response, param) {
     var dbFunction = function(error, user) {
-        if(error) {
-            serve.error(response, 416);
-        } else if(!user) {
-            db.ratings.insert({
-                user : {
+        if(error || !user) {
+            json = { user : {
                     "ratings" : {
                             "Piccadilly" : null,
                             "District" : null,
@@ -41,11 +38,16 @@ function start(response, param) {
                     },
                     "comments" : {}
                 }
-            }, function(err) {
+            }
+            db.ratings.insert(
+                json, function(err) {
                 if(error) {
                     serve.error(response, 416);
+                    console.log("ERROR INSERTING AN OBJECT");
                 }
             });
+            serve.jsonobj(response, json);
+            console.log(json);
         } else {
             var json = {"ratings" : {
                 "Piccadilly" : null,
@@ -105,6 +107,7 @@ function start(response, param) {
         var tarray = param.split("=")
         var userName = tarray[1];
         db.ratings.find(userName, dbFunction);
+        console.log("userName is :" + userName)
     } else {
         serve.error(response, 416);
     }
