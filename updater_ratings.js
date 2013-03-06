@@ -22,10 +22,12 @@ function start(response, param) {
 function getResult(response, param) {
     var dbFunction = function(err, updated) {
                                 if(err || !updated) {
+				    //console.log("data was not updated");
                                     serve.error(response, 416);
                                 } else {
                                     db.ratings.find(function(error, ratings) {
                                         if(error) {
+					    // console.log("error in find");
                                             serve.error(response, 416);
                                         } else {
                                             var json = [];
@@ -38,10 +40,11 @@ function getResult(response, param) {
                                 }
                     }
     
-    var tarray = param.split("=");
-    var lineName = param[0];
-    var rating = parseInt(param[1]);
-    
+    var onQuestionMark = param.split("?");
+    var onEqualsSign = onQuestionMark[1].split("=");
+    var lineName = onEqualsSign[0];
+    var rating = parseInt(onEqualsSign[1]);
+
     switch(rating) {
         case 0 : 
             db.ratings.findAndModify({
