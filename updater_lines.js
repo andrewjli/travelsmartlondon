@@ -58,7 +58,7 @@ function updateDb(db, data) {
     log.info("Line update - Started");
     data.ArrayOfLineStatus.LineStatus.forEach(function(lines) {
         db.line.update( {
-            lineID : parseInt(lines.id[0],10)
+            lineID : parseInt(lines.Line[0].$.ID,10)
         }, {
             $set: {
                 lineID : parseInt(lines.Line[0].$.ID),

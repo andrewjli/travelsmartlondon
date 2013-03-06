@@ -11,7 +11,6 @@
 var http = require("http");
 var url = require("url");
 var log = require("./log");
-var timer = require("./timer");
 var db = require("./db.js");
 
 /**
