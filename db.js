@@ -7,10 +7,10 @@
 
 /* Required modules */
 var log = require("./log");
-var lines = require("./updater_lines");
+//var lines = require("./updater_lines");
 var bikes = require("./updater_bike");
 var bikedb = require("mongojs").connect("tslDb", ["bike"]);
-var linedb = require("mongojs").connect("tslDb", ["line"]);
+//var linedb = require("mongojs").connect("tslDb", ["line"]);
 
 /**
  * Starts the update timer
