@@ -26,7 +26,7 @@ function start(response, param) {
         param = tarray[1];
 
         var tflurl = "http://countdown.api.tfl.gov.uk/interfaces/ura/instant_V1?stopcode1=";
-        var returnlist = "ReturnList=DestinationText,LineName,EstimatedTime";
+        var returnlist = "StopPointState=0&ReturnList=DestinationText,LineName,EstimatedTime";
         tflurl = tflurl + param + "&" + returnlist;
         
         http.get(tflurl, function(result) {
