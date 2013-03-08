@@ -147,8 +147,8 @@ handle["/crowd"] = crowd;
 handle["/weather"] = weather;
 handle["/getratings"] = getRatings;
 handle["/postratings"] = postRatings;
-handle["/getComments"] = getComments;
-handle["/postComment"] = postComment;
+handle["/getcomments"] = getComments;
+handle["/postcomment"] = postComment;
 
 /*
  * Make the handle object available to other modules
