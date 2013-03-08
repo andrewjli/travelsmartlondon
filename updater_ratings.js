@@ -127,43 +127,43 @@ function getResult(response, param) {
                                 }
                             switch(lineName) { 
                             case "Piccadilly" :
-                                db.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
                                 break;
                             case "District" :
-                                db.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
                                 break;
                             case "Victoria" :
-                                db.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
                                 break;
                             case "Circle" :
-                                db.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
                                 break;
                             case "Hammersmith_and_City" :
-                                db.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
                                 break;
                             case "Bakerloo" :
-                                db.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
                                 break;
                             case "Waterloo_and_City" :
-                                db.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
                                 break;
                             case "Jubilee" :
-                                db.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
                                 break;
                             case "Central" :
-                                db.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
                                 break;
                             case "Metropolitan" :
-                                db.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
                                 break;
                             case "Northern" :
-                                db.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
                                 break;
                             case "DLR" :
-                                db.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
                                 break;
                             case "Overground" :
-                                db.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
+                                db.userRatings.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
                                 break;
                             }                
         });
