@@ -23,6 +23,13 @@ function start(response, param) {
 } 
 
 function getResult(response, param) {
+    
+    var onError = function(error) {
+        if(error) {
+            serve.error(response, 416);
+        }
+    }
+    
     var dbFunction = function(err, updated) {
                                 if(err || !updated) {
                                     serve.error(response, 416);
@@ -40,6 +47,56 @@ function getResult(response, param) {
                                     })
                                 }
                     }
+    
+    var updateGeneral = function(rating) {
+        switch(rating) {
+            case 0 : 
+                db.ratings.findAndModify({
+                    query : {line : lineName}, 
+                    update : {$inc : {0 : 1} }, 
+                    new : true, 
+                    upsert : true } , dbFunction ); 
+                break;
+            case 1 : 
+                db.ratings.findAndModify({
+                    query : {line : lineName}, 
+                    update : {$inc : {1 : 1} }, 
+                    new : true, 
+                    upsert : true } , dbFunction ); 
+                break;
+            case 2 : 
+                db.ratings.findAndModify({
+                    query : {line : lineName}, 
+                    update : {$inc : {2 : 1} }, 
+                    new : true, 
+                    upsert : true } , dbFunction ); 
+                break;
+            case 3 : 
+                db.ratings.findAndModify({
+                    query : {line : lineName}, 
+                    update : {$inc : {3 : 1} }, 
+                    new : true, 
+                    upsert : true } , dbFunction ); 
+                break;
+            case 4 : 
+                db.ratings.findAndModify({
+                    query : {line : lineName}, 
+                    update : {$inc : {4 : 1} }, 
+                    new : true, 
+                    upsert : true } , dbFunction ); 
+                break;
+            case 5 : 
+                db.ratings.findAndModify({
+                    query : {line : lineName}, 
+                    update : {$inc : {5 : 1} }, 
+                    new : true, 
+                    upsert : true } , dbFunction ); 
+                break;
+            default : 
+                serve.error(response, 416);
+                break;
+        }
+    };
     
     var onQuestionMark = param.split("?");
     var onEqualsSign = onQuestionMark[1].split("=");
@@ -79,6 +136,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Piccadilly === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -90,6 +148,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.District === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -101,6 +160,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Victoria === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -112,6 +172,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Circle === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -123,6 +184,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Hammersmith_and_City === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -134,6 +196,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Bakerloo === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -145,6 +208,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Waterloo_and_City === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -156,6 +220,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Jubilee === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -167,6 +232,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Central === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -178,6 +244,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Metropolitan === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -189,6 +256,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Northern === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -200,6 +268,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.DLR === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
@@ -211,66 +280,13 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Overground === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
+                                            updateGeneral();
                                         }
                                     }
                                 });
                                 break;
                             }                
         });
-
-    switch(rating) {
-        case 0 : 
-            db.ratings.findAndModify({
-                query : {line : lineName}, 
-                update : {$inc : {0 : 1} }, 
-                new : true, 
-                upsert : true } , dbFunction ); 
-            break;
-        case 1 : 
-            db.ratings.findAndModify({
-                query : {line : lineName}, 
-                update : {$inc : {1 : 1} }, 
-                new : true, 
-                upsert : true } , dbFunction ); 
-            break;
-        case 2 : 
-            db.ratings.findAndModify({
-                query : {line : lineName}, 
-                update : {$inc : {2 : 1} }, 
-                new : true, 
-                upsert : true } , dbFunction ); 
-            break;
-        case 3 : 
-            db.ratings.findAndModify({
-                query : {line : lineName}, 
-                update : {$inc : {3 : 1} }, 
-                new : true, 
-                upsert : true } , dbFunction ); 
-            break;
-        case 4 : 
-            db.ratings.findAndModify({
-                query : {line : lineName}, 
-                update : {$inc : {4 : 1} }, 
-                new : true, 
-                upsert : true } , dbFunction ); 
-            break;
-        case 5 : 
-            db.ratings.findAndModify({
-                query : {line : lineName}, 
-                update : {$inc : {5 : 1} }, 
-                new : true, 
-                upsert : true } , dbFunction ); 
-            break;
-        default : 
-            serve.error(response, 416);
-            break;
-    }
-
-    var onError = function(error) {
-        if(error) {
-            serve.error(response, 416);
-        }
-    }
 }
 
 /* Makes start method available to other modules */
