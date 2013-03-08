@@ -46,7 +46,11 @@ function getResult(response, param) {
     var onComma = onEqualsSign[1].split(",");
     var userName = onComma[0];
     var lineName = onComma[1];
-    var rating = parseInt(onComma[2], 10);
+    var rating = parseInt(onEqualsSign[2], 10);
+    console.log("username: " + userName);
+    console.log("lineName: " + lineName);
+    console.log("rating: " + rating);
+    //console.log("onComma2: " + onComma[2]);
 
     switch(rating) {
         case 0 : 
