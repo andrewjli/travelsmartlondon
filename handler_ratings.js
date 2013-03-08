@@ -33,14 +33,14 @@ function start(response, param) {
         };   
         
     var regexAll = /\?fetch[Aa]ll/;
-    var regexUser = /\?[Ff]etch[Ff]or[Us]ser\=.*/;
+    var regexUser = /\?[Ff]etch[Ff]or[Uu]ser\=.*/;
     if(regexAll.test(param)) {
         db.ratings.find(dbFunctionAll);
     } else if (regexUser.test(param)) {
         var paramArray = param.split("=");
         var user = paramArray[1];
-        db.userRatings.find({userName : user}, function(error, result) {
-        if(!error) {
+        db.userRatings.findOne({"userName" : user}, function(error, result) {
+       	if(!error) {
             if(result) {
                 serve.jsonobj(response, result); 
             } else {
@@ -60,12 +60,12 @@ function start(response, param) {
                     "DLR" : null,
                     "Overground" : null
                 }
+		console.log("json is: " + json);
                 db.userRatings.insert(json, function(error) {
                     if(error) {
-                        console.log("could not insert a new entry");
                         serve.error(response, 416);
                     } else {
-                        serve.jsonobj(response, json);
+			serve.jsonobj(response, json);
                     }
                 })
                 
@@ -73,7 +73,7 @@ function start(response, param) {
         } 
     });
     } else {
-        serve.error(response, 416);
+	serve.error(response, 416);
     }
 }
 
