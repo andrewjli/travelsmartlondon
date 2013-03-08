@@ -3,7 +3,7 @@
  * handlers for each type of request. If a handler exists
  * for that request, it will call it and execute the handler.
  * 
- * @author  Andrew Li
+ * @author  Andrew Li, Kamil Przekwas
  * @version 1.0
  */
 
@@ -18,6 +18,8 @@ var handler_crowd = require("./handler_crowd");
 var handler_weather = require("./handler_weather");
 var handler_ratings = require("./handler_ratings");
 var updater_ratings = require("./updater_ratings");
+var handler_comments = require("./handler_comments");
+var updater_comments = require("./updater_comments");
 
 /**
  * The handler to serve bus countdown data
@@ -110,6 +112,27 @@ function postRatings(response, param) {
     updater_ratings.start(response, param);
 }
 
+/**
+ * The handler to serve comments per user and per station
+ * 
+ * @param response the response object created by the server when the request was received
+ * @param param the client requested parameters
+ */ 
+function getComments(response, param) {
+    handler_comments.start(response, param);
+} 
+
+
+/**
+ * The updater to post comments on station experience to TSL databse
+ * 
+ * @param response the response object created by the server when the request was received
+ * @param param the client posted parameters
+ */ 
+function postComment(response, param) {
+    updater_comments.start(response, param);
+} 
+
 /*
  * Make handlers available to be executed. Each handler
  * needs to be manually added to the handle object
@@ -124,6 +147,8 @@ handle["/crowd"] = crowd;
 handle["/weather"] = weather;
 handle["/getratings"] = getRatings;
 handle["/postratings"] = postRatings;
+handle["/getComments"] = getComments;
+handle["/postComment"] = postComment;
 
 /*
  * Make the handle object available to other modules

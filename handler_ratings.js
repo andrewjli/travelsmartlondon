@@ -40,7 +40,7 @@ function start(response, param) {
         var paramArray = param.split("=");
         var user = paramArray[1];
         db.userRatings.findOne({"userName" : user}, function(error, result) {
-       	if(!error) {
+        if(!error) {
             if(result) {
                 serve.jsonobj(response, result); 
             } else {
@@ -67,13 +67,13 @@ function start(response, param) {
                     } else {
 			serve.jsonobj(response, json);
                     }
-                })
+                });
                 
             }
         } 
     });
     } else {
-	serve.error(response, 416);
+        serve.error(response, 416);
     }
 }
 
