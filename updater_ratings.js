@@ -47,10 +47,176 @@ function getResult(response, param) {
     var userName = onComma[0];
     var lineName = onComma[1];
     var rating = parseInt(onEqualsSign[2], 10);
-    console.log("username: " + userName);
-    console.log("lineName: " + lineName);
-    console.log("rating: " + rating);
-    //console.log("onComma2: " + onComma[2]);
+    
+    db.userRatings.findOne({"userName" : userName},
+                            function(error, result) { 
+                                if(error) {
+                                    serve.error(response, 416);
+                                } else if(!result) {
+                                    var json = {
+                                        "userName" : userName, 
+                                        "Piccadilly" : null,
+                                        "District" : null,
+                                        "Victoria" : null,
+                                        "Circle" : null,
+                                        "Hammersmith_and_City" : null,
+                                        "Bakerloo" : null,
+                                        "Waterloo_and_City" : null, 
+                                        "Central" : null,
+                                        "Jubilee" : null,
+                                        "Metropolitan" : null,
+                                        "Northern" : null, 
+                                        "DLR" : null,
+                                        "Overground" : null
+                                    }
+                                    db.userRatings.insert(json, onError);
+                                }
+                            switch(lineName) { 
+                            case "Piccadilly" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Piccadilly === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "District" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.District === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Victoria" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Victoria === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Circle" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Circle === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Hammersmith_and_City" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Hammersmith_and_City === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Bakerloo" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Bakerloo === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Waterloo_and_City" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Waterloo_and_City === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Jubilee" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Jubilee === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Central" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Central === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Metropolitan" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Metropolitan === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Northern" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Northern === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "DLR" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.DLR === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            case "Overground" :
+                                db.userRatings.findOne({"userName" : userName}, function(error, result) {
+                                    if(error) {
+                                        serve.error(result, 416);
+                                    } else {
+                                        if(result.Overground === null) {
+                                            db.userRatings.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
+                                        }
+                                    }
+                                });
+                                break;
+                            }                
+        });
 
     switch(rating) {
         case 0 : 
@@ -105,72 +271,6 @@ function getResult(response, param) {
             serve.error(response, 416);
         }
     }
-    
-    db.userRatings.findOne({"userName" : userName},
-                            function(error, result) { 
-                                if(error) {
-                                    serve.error(response, 416);
-                                } else if(!result) {
-                                    var json = {
-                                        "userName" : userName, 
-                                        "Piccadilly" : null,
-                                        "District" : null,
-                                        "Victoria" : null,
-                                        "Circle" : null,
-                                        "Hammersmith_and_City" : null,
-                                        "Bakerloo" : null,
-                                        "Waterloo_and_City" : null, 
-                                        "Central" : null,
-                                        "Jubilee" : null,
-                                        "Metropolitan" : null,
-                                        "Northern" : null, 
-                                        "DLR" : null,
-                                        "Overground" : null
-                                    }
-                                    db.userRatings.insert(json, onError);
-                                }
-                            switch(lineName) { 
-                            case "Piccadilly" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
-                                break;
-                            case "District" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
-                                break;
-                            case "Victoria" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
-                                break;
-                            case "Circle" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
-                                break;
-                            case "Hammersmith_and_City" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
-                                break;
-                            case "Bakerloo" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
-                                break;
-                            case "Waterloo_and_City" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
-                                break;
-                            case "Jubilee" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
-                                break;
-                            case "Central" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
-                                break;
-                            case "Metropolitan" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
-                                break;
-                            case "Northern" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
-                                break;
-                            case "DLR" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
-                                break;
-                            case "Overground" :
-                                db.userRatings.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
-                                break;
-                            }                
-        });
 }
 
 /* Makes start method available to other modules */
