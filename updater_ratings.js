@@ -48,7 +48,7 @@ function getResult(response, param) {
                                 }
                     }
     
-    var updateGeneral = function(rating) {
+    var updateGeneral = function(rating, lineName) {
         switch(rating) {
             case 0 : 
                 db.ratings.findAndModify({
@@ -136,7 +136,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Piccadilly === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Piccadilly");
                                         }
                                     }
                                 });
@@ -148,7 +148,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.District === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "District");
                                         }
                                     }
                                 });
@@ -160,7 +160,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Victoria === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Victoria");
                                         }
                                     }
                                 });
@@ -172,7 +172,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Circle === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Circle");
                                         }
                                     }
                                 });
@@ -184,7 +184,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Hammersmith_and_City === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Hammersmith_and_City");
                                         }
                                     }
                                 });
@@ -196,7 +196,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Bakerloo === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Bakerloo");
                                         }
                                     }
                                 });
@@ -208,7 +208,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Waterloo_and_City === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Waterloo_and_City");
                                         }
                                     }
                                 });
@@ -220,7 +220,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Jubilee === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Jubilee");
                                         }
                                     }
                                 });
@@ -232,7 +232,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Central === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Central");
                                         }
                                     }
                                 });
@@ -244,7 +244,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Metropolitan === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Metropolitan");
                                         }
                                     }
                                 });
@@ -256,7 +256,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Northern === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Northern");
                                         }
                                     }
                                 });
@@ -268,7 +268,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.DLR === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "DLR");
                                         }
                                     }
                                 });
@@ -280,7 +280,7 @@ function getResult(response, param) {
                                     } else {
                                         if(result.Overground === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
-                                            updateGeneral();
+                                            updateGeneral(rating, "Overground");
                                         }
                                     }
                                 });
