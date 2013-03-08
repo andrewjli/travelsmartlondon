@@ -8,18 +8,19 @@
  /* Required modules */
 var serve = require("./serve");
 var log = require("./log");
-var db = require("mongojs").connect("tslDb", ["ratings"]);
+var db = require("mongojs").connect("tslDb", ["ratings", "userRatings"]);
 
 /**
  * Checks to see if the query matches the specified
- * format. If it does, queries the database for the given radius
+ * format. If it does, queries the database for either
+ * user ratings or all ratings submitted
  * 
  * @param response the response object created by the server when the request was received
  * @param param    the client requested parameters
  */
 function start(response, param) {
         //updated
-    var dbFunction = function(error, result) {
+    var dbFunctionAll = function(error, result) {
             if(!error) { 
                 var json = [];
                 for (var x in result) {
@@ -29,11 +30,48 @@ function start(response, param) {
             } else {
                 serve.error(response, 416);
             }
-        };    
+        };   
         
-    var regex = /\?fetch[Aa]ll/;
-    if(regex.test(param)) {
-        db.ratings.find(dbFunction);
+    var regexAll = /\?fetch[Aa]ll/;
+    var regexUser = /\?[Ff]etch[Ff]or[Us]ser\=.*/;
+    if(regexAll.test(param)) {
+        db.ratings.find(dbFunctionAll);
+    } else if (regexUser.test(param)) {
+        var paramArray = param.split("=");
+        var user = paramArray[1];
+        db.userRatings.find({userName : user}, function(error, result) {
+        if(!error) {
+            if(result) {
+                serve.jsonobj(response, result); 
+            } else {
+                var json = {
+                    "userName" : user, 
+                    "Piccadilly" : null,
+                    "District" : null,
+                    "Victoria" : null,
+                    "Circle" : null,
+                    "Hammersmith_and_City" : null,
+                    "Bakerloo" : null,
+                    "Waterloo_and_City" : null, 
+                    "Central" : null,
+                    "Jubilee" : null,
+                    "Metropolitan" : null,
+                    "Northern" : null, 
+                    "DLR" : null,
+                    "Overground" : null
+                }
+                db.userRatings.insert(json, function(error) {
+                    if(error) {
+                        console.log("could not insert a new entry");
+                        serve.error(response, 416);
+                    } else {
+                        serve.jsonobj(response, json);
+                    }
+                })
+                
+            }
+        } 
+    });
     } else {
         serve.error(response, 416);
     }
