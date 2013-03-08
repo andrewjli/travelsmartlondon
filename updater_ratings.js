@@ -12,8 +12,11 @@ var db = require("mongojs").connect("tslDb", ["ratings"]);
 
 function start(response, param) {
     var regex = /\?(Piccadilly|District|Victoria|Circle|Hammersmith_and_City|Bakerloo|Waterloo_and_City|Central|Jubilee|Metropolitan|Northern|DLR|Overground)=([0-5])/;
+    var regexForUser = /\?[Ff]or[Uu]ser=^(,).*,(Piccadilly|District|Victoria|Circle|Hammersmith_and_City|Bakerloo|Waterloo_and_City|Central|Jubilee|Metropolitan|Northern|DLR|Overground)=([0-5])/;
     if(regex.test(param)) {
         getResult(response, param);
+    } else if(regexForUser.test(param)) {
+        console.log("Success!!!");
     } else {
         serve.error(response, 416);
     }
@@ -22,12 +25,10 @@ function start(response, param) {
 function getResult(response, param) {
     var dbFunction = function(err, updated) {
                                 if(err || !updated) {
-				    //console.log("data was not updated");
                                     serve.error(response, 416);
                                 } else {
                                     db.ratings.find(function(error, ratings) {
                                         if(error) {
-					    // console.log("error in find");
                                             serve.error(response, 416);
                                         } else {
                                             var json = [];
