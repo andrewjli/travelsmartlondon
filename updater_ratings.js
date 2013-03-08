@@ -28,7 +28,7 @@ function getResult(response, param) {
         if(error) {
             serve.error(response, 416);
         }
-    }
+    };
     
     var dbFunction = function(err, updated) {
                                 if(err || !updated) {
@@ -44,9 +44,9 @@ function getResult(response, param) {
                                             }
                                             serve.jsonobj(response, json);
                                         }
-                                    })
+                                    });
                                 }
-                    }
+                    };
     
     var updateGeneral = function(rating, lineName) {
         switch(rating) {
@@ -125,7 +125,7 @@ function getResult(response, param) {
                                         "Northern" : null, 
                                         "DLR" : null,
                                         "Overground" : null
-                                    }
+                                    };
                                     db.userRatings.insert(json, onError);
                                 }
                             switch(lineName) { 
@@ -137,6 +137,8 @@ function getResult(response, param) {
                                         if(result.Piccadilly === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Piccadilly" : rating}}, onError);
                                             updateGeneral(rating, "Piccadilly");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -149,6 +151,8 @@ function getResult(response, param) {
                                         if(result.District === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"District" : rating}}, onError);
                                             updateGeneral(rating, "District");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -161,6 +165,8 @@ function getResult(response, param) {
                                         if(result.Victoria === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Victoria" : rating}}, onError);
                                             updateGeneral(rating, "Victoria");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -173,6 +179,8 @@ function getResult(response, param) {
                                         if(result.Circle === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Circle" : rating}}, onError);
                                             updateGeneral(rating, "Circle");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -185,6 +193,8 @@ function getResult(response, param) {
                                         if(result.Hammersmith_and_City === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Hammersmith_and_City" : rating}}, onError);
                                             updateGeneral(rating, "Hammersmith_and_City");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -197,6 +207,8 @@ function getResult(response, param) {
                                         if(result.Bakerloo === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Bakerloo" : rating}}, onError);
                                             updateGeneral(rating, "Bakerloo");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -209,6 +221,8 @@ function getResult(response, param) {
                                         if(result.Waterloo_and_City === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Waterloo_and_City" : rating}}, onError);
                                             updateGeneral(rating, "Waterloo_and_City");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -221,6 +235,8 @@ function getResult(response, param) {
                                         if(result.Jubilee === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Jubilee" : rating}}, onError);
                                             updateGeneral(rating, "Jubilee");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -233,6 +249,8 @@ function getResult(response, param) {
                                         if(result.Central === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Central" : rating}}, onError);
                                             updateGeneral(rating, "Central");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -245,6 +263,8 @@ function getResult(response, param) {
                                         if(result.Metropolitan === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Metropolitan" : rating}}, onError);
                                             updateGeneral(rating, "Metropolitan");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -257,6 +277,8 @@ function getResult(response, param) {
                                         if(result.Northern === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Northern" : rating}}, onError);
                                             updateGeneral(rating, "Northern");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -269,6 +291,8 @@ function getResult(response, param) {
                                         if(result.DLR === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"DLR" : rating}}, onError);
                                             updateGeneral(rating, "DLR");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
@@ -281,6 +305,8 @@ function getResult(response, param) {
                                         if(result.Overground === null) {
                                             db.userRatings.update({"userName" : userName}, {$set : {"Overground" : rating}}, onError);
                                             updateGeneral(rating, "Overground");
+                                        } else {
+                                            dbFunction(false, true);
                                         }
                                     }
                                 });
