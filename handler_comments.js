@@ -29,6 +29,10 @@ function start(response, param) {
 							for (var x in comments) {
 								json.push(comments[x]);
 							}
+                            if(json.length() == 1) {
+                                json.pop();
+                                json = [{"reply" : NO_COMMENTS}];
+                            }
 							serve.jsonobj(response,json);
 						}
 					};
