@@ -39,7 +39,7 @@ function start(response, param) {
 		serve.error(response, 416);
 	}
 
-	var updateDatabseWithComment = function(userName, stationCode, comment) {
+	function updateDatabseWithComment(userName, stationCode, comment) {
 		db.comments.insert({"userName" : userName, "stationCode" : stationCode, "comment" : comment}, function(error) {
 																									if(error) {
 																										serve.error(response, 416);
