@@ -46,11 +46,11 @@ function start(response, param) {
 		getAllAt(stationCode);
 	} else if(regexForUser.test(param)) {
 		var paramNoQestionMark = param.substring(1);
-		var paramsEquals = (paramNoQestionMark.split("="))[1];
-		var paramsCommaArray = paramsEquals.split(",");
+		var paramsEqualsArray = paramNoQestionMark.split("=");
+		var paramsCommaArray = paramsEqualsArray[1].split(",");
 
 		var userName = paramsCommaArray[0];
-		var stationCode = (paramsCommaArray[1].split("="))[1];
+		var stationCode = paramsEqualsArray[2];
         
         console.log("user: " + userName);
         console.log("stationcode: " + stationCode);
