@@ -47,16 +47,20 @@ function start(response, param) {
 
 		var userName = paramsCommaArray[0];
 		var stationCode = (paramsCommaArray[1].split("="))[1];
+        
+        console.log("user: " + userName);
+        console.log("stationcode: " + stationCode);
+        
 		getForUserAt(userName, stationCode);
 	} else {
 		serve.error(response, 416);
 	}
 
-	var getAllAt = function(stationCode) {
+	function getAllAt(stationCode) {
 		db.comments.find({"stationCode" : stationCode}, dbFunction);
 	}
 
-	var getForUserAt = function(userName, stationCode) {
+	function getForUserAt(userName, stationCode) {
 		db.comments.find({"stationCode" : stationCode, "userName" : userName}, dbFunction);
 	}
 }
