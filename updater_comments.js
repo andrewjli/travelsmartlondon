@@ -16,7 +16,7 @@ const UPDATE_SUCCESSFUL = "OK";
 function start(response, param) {
 
     var regex = /\?[Ff]or[Ss]tation\=[5-9]\d\d\,[Uu]ser\=([A-Z]|[a-z]|[0-9])*\,[Cc]omment\=.*/;
-	var commentRegex = /\"([A-Z]|[a-z]|[0-9]|\s|\.|\"|\'|\?|\!|\;|\-|\:|\+)*\"/
+	var commentRegex = /([A-Z]|[a-z]|[0-9]|\s|\.|\"|\'|\?|\!|\;|\-|\:|\+)*/
 
 	if(regex.test(param)) {
 		var paramNoQuestionMark = param.substring(1);
