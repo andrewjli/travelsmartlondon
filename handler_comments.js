@@ -16,7 +16,7 @@ const COMMENTS_EXIST = "OK";
 function start(response, param) {
 
     var regexAll = /\?[Ff]etch[Aa]ll[Ff]or[Ss]tation\=[5-9]\d\d/;
-	var regexForUser = /[Ff]etch[Ff]or[Uu]ser\=([A-Z]|[a-z]|[0-9])*\,[Aa]t[Ss]tation\=[5-9]\d\d/;
+	var regexForUser = /\?[Ff]etch[Ff]or[Uu]ser\=([A-Z]|[a-z]|[0-9])*\,[Aa]t[Ss]tation\=[5-9]\d\d/;
 
 	var dbFunction = function(error, comments) {
 						if(error) {
@@ -29,7 +29,7 @@ function start(response, param) {
 							for (var x in comments) {
 								json.push(comments[x]);
 							}
-                            if(json.length() == 1) {
+                            if(json.length == 1) {
                                 json.pop();
                                 json = [{"reply" : NO_COMMENTS}];
                             }
