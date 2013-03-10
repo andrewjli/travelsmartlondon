@@ -30,7 +30,7 @@ function start(response, param) {
 		console.log("comment: " + comment);
 
 		if(commentRegex.test(comment)) {
-            querystring.parse(comment);
+            comment.parse(comment);
 			updateDatabseWithComment(userName, stationCode, comment);
 		} else {
 			var json = [{"reply" : INVALID_COMMENT_FORMAT}];
