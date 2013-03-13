@@ -1,4 +1,4 @@
-cd tr/** 
+/** 
  * This module fetches Tube Station comments from the databse 
  * 
  * @author Kamil Przekwas, Andrew Li 
