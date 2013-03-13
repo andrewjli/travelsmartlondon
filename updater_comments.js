@@ -25,9 +25,6 @@ function start(response, param) {
 		var userName = (paramsEqualsArray[2].split(","))[0];	
 		var stationCode = (paramsEqualsArray[1].split(","))[0];
 		var comment = paramsEqualsArray[3];
-		console.log("userName: " + userName);
-		console.log("stationCode: " + stationCode);
-		console.log("comment: " + comment);
 
 		if(commentRegex.test(comment)) {
             comment.parse(comment);

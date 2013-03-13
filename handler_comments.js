@@ -1,4 +1,4 @@
-/** 
+cd tr/** 
  * This module fetches Tube Station comments from the databse 
  * 
  * @author Kamil Przekwas, Andrew Li 
@@ -39,22 +39,14 @@ function start(response, param) {
 
 	if(regexAll.test(param)) {
 		var paramNoQestionMark = param.substring(1);
-
 		var stationCode = (paramNoQestionMark.split("="))[1];
-		console.log("station code: " + stationCode);
-
 		getAllAt(stationCode);
 	} else if(regexForUser.test(param)) {
 		var paramNoQestionMark = param.substring(1);
 		var paramsEqualsArray = paramNoQestionMark.split("=");
 		var paramsCommaArray = paramsEqualsArray[1].split(",");
-
 		var userName = paramsCommaArray[0];
 		var stationCode = paramsEqualsArray[2];
-        
-        console.log("user: " + userName);
-        console.log("stationcode: " + stationCode);
-        
 		getForUserAt(userName, stationCode);
 	} else {
 		serve.error(response, 416);
