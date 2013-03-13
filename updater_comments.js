@@ -27,7 +27,6 @@ function start(response, param) {
 		var comment = paramsEqualsArray[3];
 
 		if(commentRegex.test(comment)) {
-            comment.parse(comment);
 			updateDatabseWithComment(userName, stationCode, comment);
 		} else {
 			var json = [{"reply" : INVALID_COMMENT_FORMAT}];
