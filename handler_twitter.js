@@ -68,3 +68,6 @@ function parse(data, response) {
     }
     serve.jsonobj(response, json);
 }
+
+/* Makes start method available to other modules */
+exports.start = start;

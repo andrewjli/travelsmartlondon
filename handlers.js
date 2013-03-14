@@ -20,6 +20,7 @@ var handler_ratings = require("./handler_ratings");
 var updater_ratings = require("./updater_ratings");
 var handler_comments = require("./handler_comments");
 var updater_comments = require("./updater_comments");
+var handler_twitter = require("./handler_twitter");
 
 /**
  * The handler to serve bus countdown data
@@ -133,6 +134,16 @@ function postComment(response, param) {
     updater_comments.start(response, param);
 } 
 
+/**
+ * The handler to serve twitter data
+ * 
+ * @param response the response object created by the server when the request was received
+ * @param param    the client requested parameters
+ */
+function twitter(response, param) {
+    handler_twitter.start(response, param);
+}
+
 /*
  * Make handlers available to be executed. Each handler
  * needs to be manually added to the handle object
@@ -149,6 +160,7 @@ handle["/getratings"] = getRatings;
 handle["/postratings"] = postRatings;
 handle["/getcomments"] = getComments;
 handle["/postcomment"] = postComment;
+handle["/gettwitter"] = twitter;
 
 /*
  * Make the handle object available to other modules
