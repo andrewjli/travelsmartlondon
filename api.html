@@ -26,7 +26,18 @@
     <body>
         <div class="container">
             <div class="masthead">
-                <h3 class="muted">TravelSmart London</h3>
+            	<table align="left">
+            		<tr>
+            			<td>
+	            			<a class="brand" href="index.html"> <img src="img/logo.png" height="100" width="100"></a>
+            			</td>
+            			<td>
+		            		<div class ="custom">
+			            		<h2 class="muted">TravelSmart London</h2>
+			            	</div>
+            			</td>
+            		</tr>
+            	</table>
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div class="container">
@@ -35,7 +46,7 @@
                                 <li><a href="about.html">About</a></li>
                                 <li class="active"><a href="api.html">API</a></li>
                                 <li><a href="app.html">App</a></li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="doc.html">Documentation</a></li>
                                 <li><a href="download.html">Download</a></li>
                             </ul>
                         </div>
@@ -48,10 +59,11 @@
                     <h2>Freely Available</h2>
                     <div class="row-fluid">
                         <div class="span8">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce purus diam, viverra vel gravida a, sodales in metus. Ut sagittis consequat dui sed mollis. Fusce aliquet ultrices urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut velit porta dui cursus posuere. Etiam auctor ornare risus nec suscipit. Cras ultrices rutrum pharetra. Donec eu risus turpis, id porttitor mauris.</p>
+                            <p>The API is available for everyone who needs easy access to various streams of transport related data. Not only that - we also allow you to share your travel experience with us! You can use our API to contribute comments about your journey experience and rate individual Tube lines! You can use comments we gather freely as much as you want!</p>
+                            <a class="btn btn-large btn-success" href="doc.html">How to access our API</a>
                         </div>
                         <div class="span4">
-                            
+                        <a class="brand" href="index.html"> <img src="img/free.png" height="200" width="250"></a>  
                         </div>
                     </div>
                 </div>
@@ -63,11 +75,11 @@
                 <div class="span12">
                     <h2>Node.js and REST</h2>
                     <div class="row-fluid">
-                        <div class="span4">
-                            
-                        </div>
                         <div class="span8">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce purus diam, viverra vel gravida a, sodales in metus. Ut sagittis consequat dui sed mollis. Fusce aliquet ultrices urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut velit porta dui cursus posuere. Etiam auctor ornare risus nec suscipit. Cras ultrices rutrum pharetra. Donec eu risus turpis, id porttitor mauris.</p>
+                            <p>Since we expect it to be used by multiple clients, we need to minimise the coupling between them and the API. REST enables us to handle more clients at the same time more effectively and makes it easy for new clients to use our API, as it uses the HTTP protocol. You don't have to worry what will happen if we update our API in the future - we guarantee the format of queries will stay the same! Furthermore, for simplicity and high performance we have written our API in <b>Node.js</b> so that you never have to worry about our server going down!</p>
+                        </div>
+                        <div class="span4">
+                        <a class="brand" href="index.html"> <img src="img/nodejs_logo.png" height="200" width="250"></a>  
                         </div>
                     </div>
                 </div>
@@ -77,13 +89,13 @@
 
             <div class="row-fluid">
                 <div class="span12">
-                    <h2>Unstructured Data</h2>
+                    <h2>We provide a structure for unstructured data!</h2>
                     <div class="row-fluid">
                         <div class="span8">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce purus diam, viverra vel gravida a, sodales in metus. Ut sagittis consequat dui sed mollis. Fusce aliquet ultrices urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ut velit porta dui cursus posuere. Etiam auctor ornare risus nec suscipit. Cras ultrices rutrum pharetra. Donec eu risus turpis, id porttitor mauris.</p>
+                            <p>TSL combines different sources for different means of transport. Each one is stored in a different format and they are often completely incompatible with one another. There is very little or no connection between different data feeds so one data feed rarely relates to another. We deal with that using NoSQL. And more importantly, we share our results with YOU! All the data we provide is formatted and simplified to provide only the relevant information and it's all in plain <b>JSON</b> to make it easy for you to process!</p>
                         </div>
                         <div class="span4">
-                            
+                        <a class="brand" href="index.html"> <img src="img/json.png" height="200" width="250"></a>      
                         </div>
                     </div>
                 </div>
