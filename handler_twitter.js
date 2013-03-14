@@ -29,8 +29,8 @@ function start(response, param) {
      if(regexStation.test(param)) {
          var station = (param.split("="))[1];
          var spaceStationEncoded = "%20station";
-         var queryStation = twitterUrl + station + spaceStationEncoded + returnList; 
-         queryTwitter(queryStation);
+         var queryStation = twitterUrl + station + spaceStationEncoded + returnList;  
+	queryTwitter(queryStation);
          
      } else if(regexLine.test(param)) {
          var line = (param.split("="))[1];
@@ -57,9 +57,9 @@ function start(response, param) {
 }
 
 function parse(data, response) {
+    data = JSON.parse(data);
     var json = [];
-    var x;
-    for(x in data.results) {
+    for(var x in data.results) {
         var obj = { "created_at" : data.results[x].created_at,
                     "from_user" : data.results[x].from_user,
                     "text" : data.results[x].text
