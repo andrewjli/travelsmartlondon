@@ -61,8 +61,8 @@ function updateDb(db, data) {
             lineID : parseInt(lines.Line[0].$.ID,10)
         }, {
             $set: {
-                //lineID : parseInt(lines.Line[0].$.ID),
-                //lineName : lines.Line[0].$.Name,
+                lineID : parseInt(lines.Line[0].$.ID),
+                lineName : lines.Line[0].$.Name,
                 statusDescription: lines.Status[0].$.Description,
                 statusDetails : lines.$.StatusDetails
             }
