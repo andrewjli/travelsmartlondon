@@ -24,7 +24,7 @@ function start() {
     }, 300000);
     setInterval(function() {
     	lines.start(linedb)
-    }, 180000);
+    }, 180000);//3 minutes
 }
 
 /* Make methods available to other modules */
