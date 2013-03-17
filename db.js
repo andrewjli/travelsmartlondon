@@ -12,7 +12,7 @@ var bikes = require("./updater_bike");
 
 /* Opens connections for the database */
 var bikedb = require("mongojs").connect("tslDb", ["bike"]);
-var linedb = require("mongojs").connect("tslDb", ["line"]);
+var linedb = require("mongojs").connect("tslDb", ["lines"]);
 
 /**
  * Starts the update timer
