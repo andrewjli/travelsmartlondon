@@ -37,7 +37,7 @@ function start(response, param) {
 	}
 
 	function updateDatabseWithComment(userName, stationCode, comment) {
-		db.comments.insert({"userName" : userName, "stationCode" : stationCode, "comment" : comment}, function(error) {
+		db.comments.insert({"userName" : userName, "stationCode" : stationCode, "comment" : comment, "created_at" : new Date()}, function(error) {
 																									if(error) {
 																										serve.error(response, 416);
 																									} else {
