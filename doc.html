@@ -29,7 +29,7 @@
             	<table align="left">
             		<tr>
             			<td>
-	            			<a class="brand" href="index.html"> <img src="img/logo.png" height="100" width="100"></a>
+	            			<a class="brand" href="index.html"> <img src="img/logo.png" height="100" width="100" alt="Logo"></a>
             			</td>
             			<td>
 		            		<div class ="custom">
@@ -55,49 +55,62 @@
             </div>
 
             <div class="jumbotron">
-            	<h3>
-		            <a name="bus-countdown" class="anchor" href="#bus-countdown"><span class="mini-icon mini-icon-link"></span></a>Bus Countdown</h3>
+            	<h3>Bus Countdown</h3>
 		            <p>Bus countdown can be requested at</p>
 		            <pre><code>/bus?stop=#####</code></pre>
 		            <p>where <code>#####</code> is the 5 digit bus stop code</p>
-	            <h3>
-		            <a name="bus-stop-query" class="anchor" href="#bus-stop-query"><span class="mini-icon mini-icon-link"></span></a>Bus Stop Query</h3>
+	            <h3>Bus Stop Query</h3>
 		            <p>Bus stop locations can be requested at</p>
 		            <pre><code>/stops?loc=######,$$$$$$,%%%</code></pre>
 		            <p>where <code>######</code> is the latitude co-ordinate, <code>$$$$$$</code> is the longitude co-ordinate and <code>%%%</code> is the radius</p>
-	            <h3>
-			        <a name="tube-countdown" class="anchor" href="#tube-countdown"><span class="mini-icon mini-icon-link"></span></a>Tube Countdown</h3>
+	            <h3>Tube Countdown</h3>
 			        <p>Tube countdown can be requested at</p>
 			        <pre><code>/tube?stop=@,$$$</code></pre>
 			        <p>where <code>$$$</code> is the 3 letter station code and <code>@</code> is the 1 letter line code</p>
-		        <h3>
-			        <a name="line-status" class="anchor" href="#line-status"><span class="mini-icon mini-icon-link"></span></a>Line Status</h3>
+		        <h3>Line Status</h3>
 			        <p>Line status can be requested at</p>
 			        <pre><code>/lines</code></pre>
-		        <h3>
-			        <a name="bike-docks" class="anchor" href="#bike-docks"><span class="mini-icon mini-icon-link"></span></a>Bike Docks</h3>
+		        <h3>Bike Docks</h3>
 			        <p>Bike dock locations can be requested at</p>
 			        <pre><code>/bike?loc=######,$$$$$$,%%%</code></pre>
 			        <p>where <code>######</code> is the latitude co-ordinate, <code>$$$$$$</code> is the longitude co-ordinate and <code>%%%</code> is the radius</p>
-		        <h3>
-			        <a name="crowdedness" class="anchor" href="#crowdedness"><span class="mini-icon mini-icon-link"></span></a>Crowdedness</h3>
+		        <h3>Crowdedness</h3>
 			        <p>Crowdedness can be requested at</p>
 			        <pre><code>/crowd?stop=###,$$$$</code></pre>
 			        <p>where <code>###</code> is the 3 digit NLC code for the station and <code>$$$$</code> is the time in 24-hour military format (e.g. 0000 for midnight)</p>
-		        <h3>
-			        <a name="weather" class="anchor" href="#weather"><span class="mini-icon mini-icon-link"></span></a>Weather</h3>
+		        <h3>Weather</h3>
 			        <p>Weather can be requested at</p>
 			        <pre><code>/weather?loc=######,$$$$$$</code></pre>
-			        <p>where <code>######</code> is the latitude co-ordinate and <code>$$$$$$</code> is the longitude co-ordinate</p></article>
-		   </div>
-	  </div>
-  </div>
-            <div class="footer">
-                <p>&copy; TravelSmart London 2012-2013</p>
-            </div>
-            </div>
-        </div>
+			        <p>where <code>######</code> is the latitude co-ordinate and <code>$$$$$$</code> is the longitude co-ordinate</p>
+			    <h3>Line Ratings</h3>
+			    	<p>Reatings can be requested for overall line ratings or for ratings submitted only by one user. These can be accessed at </p>
+			    	<pre><code>/getratings?fetchall
+			    	
+/getratings?fetchforuser=*username*</code></pre>
+				    <p>where <code>*username*</code> is the username for which rating is to be retrieved </p>
+				    <p>Ratings can also be posted to the API at </p>
+				    <pre><code>/postratings?foruser=*username*,*lineName*=#</code></pre>
+				    <p>where <code>*username*</code> is the username of the user who submits the rating, <code>*linename*</code> is the name of the line and <code>#</code> is the rating int on the scale 0-5</p>
 
+				<h3>Comments</h3>
+					<p>Comments can be accessed per station overall or for an individual user. These can be requested at </p>
+					<pre><code>/getcomments?fetchallforstation=###
+							
+/getcomments?fetchforuser=*username*,atstation=###</code></pre>
+					<p>where <code>###</code> is the 3 digit NLC code for the station and <code>*username*</code> is the username of the user whose comments are retrieved </p>
+					<p>Comments can also be posted to the API at </p>
+					<pre><code>/postcomment?forstation=###,user=*username*,comment=*comment*</code></pre>
+					<p>where <code>###</code> is the 3 digit NLC code for the station, <code>*username*</code> is the username of the user whose comments are retrieved and <code>*comment*</code> is the user comment </p>
+					<h3>Twitter</h3>
+						<p>Twitter feeds can be requested at </p>
+						<pre><code>/gettwitter?fetchforstation=*station*	
+						
+/gettwitter?getchforline=*line*</code></pre>
+		   </div>
+        </div>
+    <div class="footer">
+    	<p>&copy; TravelSmart London 2012-2013</p>
+    </div>
         <script src="js/jquery.js"></script>
         <script src="js/bootstrap-transition.js"></script>
         <script src="js/bootstrap-alert.js"></script>
