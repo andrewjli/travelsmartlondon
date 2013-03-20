@@ -75,7 +75,7 @@ Ratings can also be posted to the API at
     
 where `*username*` is the username of the user who submits the rating, `*linename*` is the name of the line and `#` is the rating int on the scale 0-5
 
-### Comments ### 
+### Comments ###
 Comments can be accessed per station overall or for an individual user. These can be requested at 
 
     /getcomments?fetchallforstation=###
@@ -90,7 +90,7 @@ Comments can also be posted to the API at
     
 where `###` is the 3 digit NLC code for the station, `*username*` is the username of the user whose comments are retrieved and `*comment*` is the user comment 
 
-### Twitter ### 
+### Twitter ###
 Twitter feeds can be requested at 
 
     /gettwitter?fetchforstation=*station*
