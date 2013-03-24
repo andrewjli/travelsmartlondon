@@ -70,7 +70,8 @@ function updateDb(db, data) {
                 dbDocks: stn.nbDocks[0]
             }
         }, {
-            multi: true
+            multi: true, 
+            upsert : true
         }, function(error) {
             if(error) {
                 log.error("Bike update - Error updating bike dock " + stn.id[0] + ": " + error);

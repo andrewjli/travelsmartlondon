@@ -61,10 +61,12 @@ function updateDb(db, data) {
             lineID : lines.Line[0].$.ID
         }, {
             $set: {
+                lineID : lines.Line[0].$.ID, 
+                lineName : lines.Line[0].$.Name,
                 statusDescription: lines.Status[0].$.Description,
                 statusDetails : lines.$.StatusDetails
             }
-        }, function(error) {
+        }, {upsert : true}, function(error) {
             if(error) {
                 log.error("Line update - Error updating line " + lines.id[0] + ": " + error);
             }
